@@ -4,6 +4,7 @@ import time
 import sys
 import os
 import random
+import classes.core.ship as ship
 
 pygame.init()
 
@@ -22,13 +23,14 @@ blue = (0, 0, 255)
 
 clock = pygame.time.Clock()
 
-shipImg = pygame.image.load('resources/images/ship.png')
+ship = ship.Ship()
 
 shipWidth = 166
 shipHeight = 309
 
+
 def img(x, y):
-    WINDOW.blit(shipImg, (x, y))
+    WINDOW.blit(ship.img, (x, y))
 
 
 def gameLoop():
@@ -76,6 +78,7 @@ def gameLoop():
 
         pygame.display.update()
         clock.tick(60)
+
 
 gameLoop()
 pygame.quit()

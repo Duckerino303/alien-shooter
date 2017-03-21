@@ -49,9 +49,9 @@ def gameLoop():
                 sys.exit(0)
 
             if event.type == KEYDOWN:
-                if event.key == K_LEFT:
+                if event.key == K_LEFT and x - shipSpeed > 0:
                     xChange = -shipSpeed
-                elif event.key == K_RIGHT:
+                elif event.key == K_RIGHT and x + shipSpeed < WINDOW_WIDTH - shipWidth:
                     xChange = shipSpeed
 
             if event.type == KEYUP:

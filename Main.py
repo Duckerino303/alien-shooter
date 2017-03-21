@@ -77,7 +77,7 @@ def gameLoop():
             yChange = 0
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(120)
 
 
 gameLoop()

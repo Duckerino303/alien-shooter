@@ -29,7 +29,7 @@ shipWidth = 166
 shipHeight = 309
 
 
-def img(x, y):
+def drawImg(x, y):
     WINDOW.blit(ship.img, (x, y))
 
 
@@ -61,7 +61,7 @@ def gameLoop():
         x += xChange
 
         WINDOW.fill(black)
-        img(x, y)
+        drawImg(x, y)
 
         if x > WINDOW_WIDTH - shipWidth or x < 0:
             xChange = 0

@@ -22,7 +22,7 @@ blue = (0, 0, 255)
 
 clock = pygame.time.Clock()
 
-shipImg = pygame.image.load('ship.png')
+shipImg = pygame.image.load('resources/images/ship.png')
 
 shipWidth = 166
 shipHeight = 309

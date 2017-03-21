@@ -38,7 +38,6 @@ def gameLoop():
     y = (WINDOW_HEIGHT * 0.45)
 
     xChange = 0
-    yChange = 0
 
     shipSpeed = 5
 
@@ -54,27 +53,18 @@ def gameLoop():
                     xChange = -shipSpeed
                 elif event.key == K_RIGHT:
                     xChange = shipSpeed
-                elif event.key == K_UP:
-                    yChange = -shipSpeed
-                elif event.key == K_DOWN:
-                    yChange = shipSpeed
 
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
                     xChange = 0
-                elif event.key == K_UP or event.key == K_DOWN:
-                    yChange = 0
 
         x += xChange
-        y += yChange
 
         WINDOW.fill(black)
         img(x, y)
 
         if x > WINDOW_WIDTH - shipWidth or x < 0:
             xChange = 0
-        if y > WINDOW_HEIGHT - shipHeight or y < 0:
-            yChange = 0
 
         pygame.display.update()
         clock.tick(60)

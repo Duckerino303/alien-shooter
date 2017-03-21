@@ -14,7 +14,7 @@ WINDOW_WIDTH = 800
 WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('Alien Shooter')
 
-# R G B
+# R G B colors
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)

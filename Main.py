@@ -4,7 +4,7 @@ import time
 import sys
 import os
 import random
-import classes.core.ship as ship
+import classes.core.ship as ships
 
 pygame.init()
 
@@ -23,10 +23,7 @@ blue = (0, 0, 255)
 
 clock = pygame.time.Clock()
 
-ship = ship.Ship()
-
-shipWidth = 166
-shipHeight = 309
+ship = ships.Ship()
 
 
 def img(x, y):
@@ -39,8 +36,6 @@ def gameLoop():
 
     xChange = 0
 
-    shipSpeed = 5
-
     gameExit = False
 
     while not gameExit:
@@ -49,10 +44,10 @@ def gameLoop():
                 sys.exit(0)
 
             if event.type == KEYDOWN:
-                if event.key == K_LEFT and x - shipSpeed > 0:
-                    xChange = -shipSpeed
-                elif event.key == K_RIGHT and x + shipSpeed < WINDOW_WIDTH - shipWidth:
-                    xChange = shipSpeed
+                if event.key == K_LEFT and x - ship.speed > 0:
+                    xChange = -ship.speed
+                elif event.key == K_RIGHT and x + ship.speed  < WINDOW_WIDTH - ship.speed :
+                    xChange = ship.speed
 
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
@@ -63,7 +58,7 @@ def gameLoop():
         WINDOW.fill(black)
         img(x, y)
 
-        if x > WINDOW_WIDTH - shipWidth or x < 0:
+        if x > WINDOW_WIDTH - ship.width or x < 0:
             xChange = 0
 
         pygame.display.update()

@@ -32,7 +32,7 @@ def drawImg(x, y):
 
 def gameLoop():
     x = (WINDOW_WIDTH * 0.45)
-    y = (WINDOW_HEIGHT * 0.45)
+    y = (WINDOW_HEIGHT - ship.height - 1)
 
     xChange = 0
 

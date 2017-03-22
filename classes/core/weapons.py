@@ -5,5 +5,3 @@ class Weapon:
         self.img = img
         self.sound = sound
         self.maxBullets = maxBullets
-
-    def drawBullet(self, x, y):

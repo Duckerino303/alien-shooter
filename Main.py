@@ -46,7 +46,7 @@ def gameLoop():
             if event.type == KEYDOWN:
                 if event.key == K_LEFT and x - ship.speed > 0:
                     xChange = -ship.speed
-                elif event.key == K_RIGHT and x + ship.speed  < WINDOW_WIDTH - ship.speed :
+                elif event.key == K_RIGHT and x + ship.speed  < WINDOW_WIDTH - ship.width :
                     xChange = ship.speed
 
             if event.type == KEYUP:

@@ -4,4 +4,4 @@ class Weapon:
         self.speed = speed
         self.img = img
         self.sound = sound
-        self.maxBullets = maxBullets
+        # self.maxBullets = maxBullets

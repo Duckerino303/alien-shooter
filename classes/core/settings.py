@@ -1,4 +1,6 @@
+import pygame
 WINDOW_HEIGHT = 760
 WINDOW_WIDTH = 800
 SHIP_WIDTH = 33
 SHIP_HEIGHT = 62
+WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))

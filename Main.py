@@ -6,11 +6,9 @@ import os
 import random
 import classes.core.ship as ships
 import classes.core.settings as settings
+
 pygame.init()
 
-
-
-WINDOW = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
 pygame.display.set_caption('Alien Shooter')
 
 # R G B colors
@@ -26,13 +24,10 @@ ship = ships.Ship()
 
 
 def drawImg(x, y):
-    WINDOW.blit(ship.img, (x, y))
+    settings.WINDOW.blit(ship.img, (x, y))
 
 
 def gameLoop():
-    x = (settings.WINDOW_WIDTH * 0.45)
-    y = (settings.WINDOW_HEIGHT - settings.SHIP_HEIGHT - 1)
-
     xChange = 0
 
     gameExit = False
@@ -43,21 +38,28 @@ def gameLoop():
                 sys.exit(0)
 
             if event.type == KEYDOWN:
-                if event.key == K_LEFT and x - ship.speed > 0:
+                if event.key == K_LEFT and ship.x - ship.speed > 0:
                     xChange = -ship.speed
-                elif event.key == K_RIGHT and x + ship.speed  < settings.WINDOW_WIDTH - settings.SHIP_WIDTH :
+                elif event.key == K_RIGHT and ship.x + ship.speed < settings.WINDOW_WIDTH - settings.SHIP_WIDTH:
                     xChange = ship.speed
+                elif event.key == K_SPACE:
+                    ship.shot()
 
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
                     xChange = 0
 
-        x += xChange
+        ship.x += xChange
 
-        WINDOW.fill(black)
-        drawImg(x, y)
+        settings.WINDOW.fill(black)
+        drawImg(ship.x, ship.y)
+        for bullet in ship.bullets:
+            settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
+            bullet.y-=ship.weapon.speed
+            if bullet.y < 0:
+                ship.bullets.remove(bullet)
 
-        if x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or x < 0:
+        if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0
 
         pygame.display.update()

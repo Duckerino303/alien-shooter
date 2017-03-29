@@ -14,8 +14,12 @@ class Level1(Level):
     def __init__(self):
         super().__init__(1, 1, 1)
     list_of_enemies = []
-    enemy = enemies.Enemy1()
-    list_of_enemies.append(enemy)
+    list_of_enemies.append(enemies.Enemy1(100,100))
+    list_of_enemies.append(enemies.Enemy1(200,100))
+    list_of_enemies.append(enemies.Enemy1(300,100))
+    list_of_enemies.append(enemies.Enemy1(400, 100))
+    list_of_enemies.append(enemies.Enemy1(500, 100))
+    list_of_enemies.append(enemies.Enemy1(600, 100))
     # for i in range(super.time):
     #     list_of_enemies.append()
 

@@ -1,5 +1,5 @@
 import pygame
-
+import random
 
 class Enemy:
     def __init__(self, speed, damage, hp, img, sound, x, y):
@@ -11,19 +11,23 @@ class Enemy:
         self.x = x
         self.y = y
         self.start = self.x, self.y
-        self.direction = 'right'
+        self.radius = random.randint(15,45)
+        if self.radius <=30:
+            self.direction = 'right'
+        else:
+            self.direction = 'left'
 
     def move(self):
         if self.direction == 'right':
             self.x += 1
-            if self.x > self.start[0] + 45:
+            if self.x > self.start[0] + self.radius:
                 self.direction = 'left'
         if self.direction == 'left':
             self.x -= 1
-            if self.x < self.start[0] - 45:
+            if self.x < self.start[0] - self.radius:
                 self.direction = 'right'
 
 
 class Enemy1(Enemy):
-    def __init__(self):
-        super().__init__(1, 1, 1, 'resources/images/enemy1.png', None, 100, 100)
+    def __init__(self,x,y):
+        super().__init__(1, 1, 1, 'resources/images/enemy1.png', None, x, y)

@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4f7d78b0-08ec-4a47-b0c6-ca7c2d8731fc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/enemies.py" afterPath="$PROJECT_DIR$/classes/core/enemies.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/levels.py" afterPath="$PROJECT_DIR$/classes/core/levels.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -510,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490793023004</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="alpha phase of enemies moving&#10;">
+      <created>1490801815500</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1490801815500</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -567,7 +572,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="added shooting feature&#10;" />
     <MESSAGE value="alpha enemies&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="alpha enemies&#10;" />
+    <MESSAGE value="alpha phase of enemies moving&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="alpha phase of enemies moving&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

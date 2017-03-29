@@ -5,13 +5,12 @@ import sys
 import os
 import random
 import classes.core.ship as ships
-
+import classes.core.settings as settings
 pygame.init()
 
-WINDOW_HEIGHT = 600
-WINDOW_WIDTH = 800
 
-WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+
+WINDOW = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
 pygame.display.set_caption('Alien Shooter')
 
 # R G B colors
@@ -31,8 +30,8 @@ def drawImg(x, y):
 
 
 def gameLoop():
-    x = (WINDOW_WIDTH * 0.45)
-    y = (WINDOW_HEIGHT - ship.height - 1)
+    x = (settings.WINDOW_WIDTH * 0.45)
+    y = (settings.WINDOW_HEIGHT - settings.SHIP_HEIGHT - 1)
 
     xChange = 0
 
@@ -46,7 +45,7 @@ def gameLoop():
             if event.type == KEYDOWN:
                 if event.key == K_LEFT and x - ship.speed > 0:
                     xChange = -ship.speed
-                elif event.key == K_RIGHT and x + ship.speed  < WINDOW_WIDTH - ship.width :
+                elif event.key == K_RIGHT and x + ship.speed  < settings.WINDOW_WIDTH - settings.SHIP_WIDTH :
                     xChange = ship.speed
 
             if event.type == KEYUP:
@@ -58,7 +57,7 @@ def gameLoop():
         WINDOW.fill(black)
         drawImg(x, y)
 
-        if x > WINDOW_WIDTH - ship.width or x < 0:
+        if x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or x < 0:
             xChange = 0
 
         pygame.display.update()

@@ -6,11 +6,14 @@ import os
 import random
 import classes.core.ship as ships
 import classes.core.settings as settings
+import classes.core.enemies as enemies
+import classes.core.levels as levels
 
 pygame.init()
 
 pygame.display.set_caption('Alien Shooter')
-
+LEVEL_COUNTER = 0
+CURRENT_LEVEL = levels.LIST_OF_LEVELS[LEVEL_COUNTER]
 # R G B colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -58,6 +61,8 @@ def gameLoop():
             bullet.y-=ship.weapon.speed
             if bullet.y < 0:
                 ship.bullets.remove(bullet)
+        for enemy in CURRENT_LEVEL.list_of_enemies:
+            settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0

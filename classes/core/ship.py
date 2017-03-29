@@ -13,8 +13,9 @@ class Ship:
         self.bullet_speed = 50
         self.weapon = weapons.list_of_weapons[0]
         self.bullets = []
+        self.max_bullets = 15
 
     def shot(self):
-        if (len(self.bullets) < self.weapon.maxBullets):
+        if (len(self.bullets) < self.max_bullets):
             self.bullets.append(
                 weapons.Bullet(self.x + settings.SHIP_WIDTH / 2 - 5, settings.WINDOW_HEIGHT - settings.SHIP_HEIGHT))

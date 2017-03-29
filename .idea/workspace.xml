@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4f7d78b0-08ec-4a47-b0c6-ca7c2d8731fc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/settings.py" afterPath="$PROJECT_DIR$/classes/core/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/ship.py" afterPath="$PROJECT_DIR$/classes/core/ship.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/weapons.py" afterPath="$PROJECT_DIR$/classes/core/weapons.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/core/levels.py" afterPath="$PROJECT_DIR$/classes/core/levels.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/alien-shooter$Main.coverage" NAME="Main Coverage Results" MODIFIED="1490802285148" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/alien-shooter$Main.coverage" NAME="Main Coverage Results" MODIFIED="1490802680796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -23,11 +21,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="levels.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="levels.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/core/levels.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="43" lean-forward="false" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+            <state relative-caret-position="272">
+              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -67,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ship.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ship.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/core/ship.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
@@ -126,11 +124,11 @@
         <option value="$PROJECT_DIR$/classes/core/enemies/enemy.py" />
         <option value="$PROJECT_DIR$/classes/levels/level.py" />
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/classes/core/levels.py" />
         <option value="$PROJECT_DIR$/classes/core/enemies.py" />
         <option value="$PROJECT_DIR$/classes/core/settings.py" />
         <option value="$PROJECT_DIR$/classes/core/weapons.py" />
         <option value="$PROJECT_DIR$/classes/core/ship.py" />
+        <option value="$PROJECT_DIR$/classes/core/levels.py" />
       </list>
     </option>
   </component>
@@ -527,7 +525,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490801820036</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="bullets changes&#10;">
+      <created>1490802340933</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1490802340933</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -585,7 +590,8 @@
     <MESSAGE value="added shooting feature&#10;" />
     <MESSAGE value="alpha enemies&#10;" />
     <MESSAGE value="alpha phase of enemies moving&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="alpha phase of enemies moving&#10;" />
+    <MESSAGE value="bullets changes&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="bullets changes&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -812,11 +818,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/core/levels.py">
+    <entry file="file://$PROJECT_DIR$/classes/core/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="43" lean-forward="false" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+        <state relative-caret-position="85">
+          <caret line="5" column="62" lean-forward="false" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/core/ship.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="56" lean-forward="false" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -830,14 +846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/core/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="62" lean-forward="false" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/core/weapons.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -846,13 +854,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/core/ship.py">
+    <entry file="file://$PROJECT_DIR$/classes/core/levels.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="56" lean-forward="false" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

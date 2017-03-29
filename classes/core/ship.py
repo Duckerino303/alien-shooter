@@ -2,6 +2,7 @@ import pygame
 import classes.core.weapons as weapons
 import classes.core.settings as settings
 
+
 class Ship:
     def __init__(self):
         self.x = (settings.WINDOW_WIDTH * 0.45)
@@ -14,5 +15,6 @@ class Ship:
         self.bullets = []
 
     def shot(self):
-        self.bullets.append(weapons.Bullet(self.x + settings.SHIP_WIDTH/2-5, settings.WINDOW_HEIGHT - settings.SHIP_HEIGHT))
-
+        if (len(self.bullets) < self.weapon.maxBullets):
+            self.bullets.append(
+                weapons.Bullet(self.x + settings.SHIP_WIDTH / 2 - 5, settings.WINDOW_HEIGHT - settings.SHIP_HEIGHT))

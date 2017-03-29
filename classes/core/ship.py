@@ -13,7 +13,7 @@ class Ship:
         self.bullet_speed = 50
         self.weapon = weapons.list_of_weapons[0]
         self.bullets = []
-        self.max_bullets = 15
+        self.max_bullets = 10
 
     def shot(self):
         if (len(self.bullets) < self.max_bullets):

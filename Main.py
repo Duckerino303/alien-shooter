@@ -63,6 +63,7 @@ def gameLoop():
                 ship.bullets.remove(bullet)
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
+            enemy.move()
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0

@@ -15,8 +15,6 @@ class Level1(Level):
         super().__init__(1, 1, 1)
     list_of_enemies = []
     enemy = enemies.Enemy1()
-    enemy.x = 100
-    enemy.y = 100
     list_of_enemies.append(enemy)
     # for i in range(super.time):
     #     list_of_enemies.append()

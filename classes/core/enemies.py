@@ -1,6 +1,6 @@
 import pygame
 import random
-
+import classes.core.settings as settings
 class Enemy:
     def __init__(self, speed, damage, hp, img, sound, x, y):
         self.speed = speed

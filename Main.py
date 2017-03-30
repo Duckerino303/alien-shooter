@@ -77,12 +77,20 @@ def gameLoop():
                 if bullet.y < enemy.y + enemy.height and bullet.y > enemy.y:
                     if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
                         CURRENT_LEVEL.list_of_enemies.remove(enemy)
+                        settings.EXPLOSION_LIST.append([(enemy.x,enemy.y),settings.EXPLOSION_TIME])
                         ship.bullets.remove(bullet)
                         SCORE += 100
 
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
             enemy.move()
+
+        for explosion in settings.EXPLOSION_LIST:
+            settings.WINDOW.blit(settings.EXPLOSION_IMG,explosion[0])
+            explosion[1] -= 1
+            if(explosion[1]) == 0:
+                settings.EXPLOSION_LIST.remove(explosion)
+
 
         message_display("Score:" + str(SCORE))
 
@@ -96,3 +104,4 @@ def gameLoop():
 gameLoop()
 pygame.quit()
 quit()
+

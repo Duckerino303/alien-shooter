@@ -25,12 +25,24 @@ clock = pygame.time.Clock()
 
 ship = ships.Ship()
 
+def text_objects(text, font):
+    textSurface = font.render(text, True, white)
+    return textSurface, textSurface.get_rect()
+
+def message_display(text):
+    largeText = pygame.font.Font('freesansbold.ttf', 48)
+    TextSurf, TextRect = text_objects(text, largeText)
+    TextRect.center = ((settings.WINDOW_WIDTH - 100),(settings.WINDOW_HEIGHT - 550))
+    settings.WINDOW.blit(TextSurf, TextRect)
+
 
 def drawImg(x, y):
     settings.WINDOW.blit(ship.img, (x, y))
 
 
 def gameLoop():
+    global SCORE
+    SCORE = 0
     xChange = 0
 
     gameExit = False
@@ -61,9 +73,18 @@ def gameLoop():
             bullet.y-=ship.weapon.speed
             if bullet.y < 0:
                 ship.bullets.remove(bullet)
+            for enemy in CURRENT_LEVEL.list_of_enemies:
+                if bullet.y < enemy.y + enemy.height and bullet.y > enemy.y:
+                    if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
+                        CURRENT_LEVEL.list_of_enemies.remove(enemy)
+                        ship.bullets.remove(bullet)
+                        SCORE += 100
+
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
             enemy.move()
+
+        message_display(str(SCORE))
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0

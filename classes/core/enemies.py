@@ -8,6 +8,8 @@ class Enemy:
         self.hp = hp
         self.img = pygame.image.load(img)
         self.sound = sound
+        self.width = 33
+        self.height = 33
         self.x = x
         self.y = y
         self.start = self.x, self.y

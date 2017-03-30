@@ -16,7 +16,7 @@ class Level1(Level):
     list_of_enemies = []
     for i in range(1,15):
         for j in range(2):
-            list_of_enemies.append(enemies.Enemy1(i*100,(j+1)*100))
+            list_of_enemies.append(enemies.Enemy1(i*100, (j+1)*100))
 
     # for i in range(super.time):
     #     list_of_enemies.append()

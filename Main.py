@@ -30,9 +30,9 @@ def text_objects(text, font):
     return textSurface, textSurface.get_rect()
 
 def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf', 48)
+    largeText = pygame.font.Font('freesansbold.ttf', 24)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100),(settings.WINDOW_HEIGHT - 550))
+    TextRect.center = ((settings.WINDOW_WIDTH - 100),(settings.WINDOW_HEIGHT - 570))
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -84,7 +84,7 @@ def gameLoop():
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
             enemy.move()
 
-        message_display(str(SCORE))
+        message_display("Score:" + str(SCORE))
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0

@@ -1,4 +1,6 @@
 import pygame
+CLOCK_RATE = 120
+CLOCK = pygame.time.Clock()
 WINDOW_HEIGHT = 600
 WINDOW_WIDTH = 800
 SHIP_WIDTH = 33
@@ -8,3 +10,5 @@ EXPLOSION_IMG = pygame.image.load('resources/images/explosion.png')
 EXPLOSION_LIST = []
 EXPLOSION_TIME = 15
 BONUSES_LIST = []
+LIST_OF_LEVELS = []
+LIST_OF_ENEMY_BULLETS = []

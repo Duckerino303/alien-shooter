@@ -14,7 +14,7 @@ pygame.init()
 
 pygame.display.set_caption('Alien Shooter')
 LEVEL_COUNTER = 0
-CURRENT_LEVEL = levels.LIST_OF_LEVELS[LEVEL_COUNTER]
+CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
 # R G B colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -22,7 +22,7 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
-clock = pygame.time.Clock()
+clock = settings.CLOCK
 
 ship = ships.Ship()
 
@@ -45,7 +45,7 @@ def gameLoop():
     global SCORE
     SCORE = 0
     xChange = 0
-
+    LOOP = 0
     gameExit = False
 
     while not gameExit:
@@ -83,6 +83,11 @@ def gameLoop():
                         ship.bullets.remove(bullet)
                         SCORE += 100
 
+        for bullet in settings.LIST_OF_ENEMY_BULLETS:
+            settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
+            bullet.y+=1
+
+
         for bonus in settings.BONUSES_LIST:
             settings.WINDOW.blit(bonus.img, (bonus.x, bonus.y))
             bonus.y += 1
@@ -91,7 +96,12 @@ def gameLoop():
 
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
-            enemy.move()
+            if random.randint(1,1000) < 5:
+                enemy.shoot()
+            if enemy.allocated:
+                enemy.move()
+            else:
+                enemy.initialise(0)
 
 
         for explosion in settings.EXPLOSION_LIST:
@@ -110,8 +120,7 @@ def gameLoop():
             xChange = 0
 
         pygame.display.update()
-        clock.tick(120)
-
+        clock.tick(settings.CLOCK_RATE)
 
 gameLoop()
 pygame.quit()

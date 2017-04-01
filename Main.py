@@ -83,9 +83,16 @@ def gameLoop():
                         ship.bullets.remove(bullet)
                         SCORE += 100
 
+        for bonus in settings.BONUSES_LIST:
+            settings.WINDOW.blit(bonus.img, (bonus.x, bonus.y))
+            bonus.y += 1
+            if (bonus.y) == 0:
+                settings.BONUSES_LIST.remove(bonus)
+
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
             enemy.move()
+
 
         for explosion in settings.EXPLOSION_LIST:
             settings.WINDOW.blit(settings.EXPLOSION_IMG,explosion[0])
@@ -93,11 +100,7 @@ def gameLoop():
             if(explosion[1]) == 0:
                 settings.EXPLOSION_LIST.remove(explosion)
 
-        for bonus in settings.BONUSES_LIST:
-            settings.WINDOW.blit(bonus.img, (bonus.x, bonus.y))
-            bonus.y += 1
-            if (bonus.y) == 0:
-                settings.BONUSES_LIST.remove(bonus)
+
 
 
 

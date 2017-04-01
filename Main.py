@@ -29,10 +29,10 @@ def text_objects(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
-def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf', 24)
+def message_display(text, x, y, size):
+    largeText = pygame.font.Font('freesansbold.ttf', size)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100),(settings.WINDOW_HEIGHT - 570))
+    TextRect.center = (x, y)
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -91,8 +91,10 @@ def gameLoop():
             if(explosion[1]) == 0:
                 settings.EXPLOSION_LIST.remove(explosion)
 
+        message_display("Score:" + str(SCORE), 700, 30, 24)
 
-        message_display("Score:" + str(SCORE))
+        if not CURRENT_LEVEL.list_of_enemies:
+            message_display("You win!", 400, 300, 64)
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0

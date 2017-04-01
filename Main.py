@@ -8,6 +8,7 @@ import classes.core.ship as ships
 import classes.core.settings as settings
 import classes.core.enemies as enemies
 import classes.core.levels as levels
+import classes.core.bonuses as bonuses
 
 pygame.init()
 
@@ -78,6 +79,7 @@ def gameLoop():
                     if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
                         CURRENT_LEVEL.list_of_enemies.remove(enemy)
                         settings.EXPLOSION_LIST.append([(enemy.x,enemy.y),settings.EXPLOSION_TIME])
+                        settings.BONUSES_LIST.append(bonuses.Test_bonus(enemy.x,enemy.y))
                         ship.bullets.remove(bullet)
                         SCORE += 100
 
@@ -90,6 +92,13 @@ def gameLoop():
             explosion[1] -= 1
             if(explosion[1]) == 0:
                 settings.EXPLOSION_LIST.remove(explosion)
+
+        for bonus in settings.BONUSES_LIST:
+            settings.WINDOW.blit(bonus.img, (bonus.x, bonus.y))
+            bonus.y += 1
+            if (bonus.y) == 0:
+                settings.BONUSES_LIST.remove(bonus)
+
 
 
         message_display("Score:" + str(SCORE))

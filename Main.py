@@ -82,7 +82,11 @@ def gameLoop():
                         CURRENT_LEVEL.list_of_enemies.remove(enemy)
                         settings.EXPLOSION_LIST.append([(enemy.x, enemy.y), settings.EXPLOSION_TIME])
                         settings.BONUSES_LIST.append(bonuses.Test_bonus(enemy.x, enemy.y))
-                        ship.bullets.remove(bullet)
+                        try:
+                            ship.bullets.remove(bullet)
+                        except ValueError:
+                            print()
+
                         SCORE += 100
 
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
@@ -97,13 +101,12 @@ def gameLoop():
 
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
-            if random.randint(1, 1000) < 5:
+            if random.randint(1, 1000) < 2:
                 enemy.shoot()
             if enemy.allocated:
                 enemy.move()
             else:
                 enemy.initialise(0)
-                continue
             if not enemy.initialise_allocated:
                 enemy.go_to_final_position()
 

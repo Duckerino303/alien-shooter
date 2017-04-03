@@ -35,6 +35,9 @@ class Level1(Level):
     list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1],100,100))
     list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1],300,100))
     list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1],500,100))
+    list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1], 100, 200))
+    list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1], 300, 200))
+    list_of_enemies.append(enemies.Enemy1(ls[0][0], ls[0][1], 500, 200))
     # for i in range(super.time):
     #     list_of_enemies.append()
 

@@ -124,6 +124,9 @@ def gameLoop():
         pygame.display.update()
         clock.tick(settings.CLOCK_RATE)
 
+        if len(CURRENT_LEVEL.list_of_enemies) > 0:
+            SCORE += settings.MULTIPLIER
+
 
 gameLoop()
 pygame.quit()

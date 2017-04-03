@@ -17,6 +17,7 @@ class Enemy:
         self.final_position = final_x,final_y
         self.radius = random.randint(15,45)
         self.allocated=False
+        self.initialise_allocated=False
         self.initialise_counter = 0
         if self.radius <=30:
             self.direction = 'right'
@@ -30,9 +31,18 @@ class Enemy:
         self.initialise_counter+=1
         if self.initialise_counter > 299:
             self.allocated = True
-            self.x = self.final_position[0]
-            self.y = self.final_position[1]
 
+    def go_to_final_position(self):
+        if self.x < self.final_position[0]:
+            self.x += self.speed
+        else:
+            self.x -= self.speed
+        if self.y < self.final_position[1]:
+            self.y += self.speed
+        else:
+            self.y -= self.speed
+        if abs(self.final_position[0] - self.x) <= 5 and  abs(self.final_position[1] - self.y)<=5:
+            self.initialise_allocated = True
     def move(self):
         if self.direction == 'right':
             self.x += 1

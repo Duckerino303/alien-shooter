@@ -26,14 +26,16 @@ clock = settings.CLOCK
 
 ship = ships.Ship()
 
+
 def text_objects(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
+
 def message_display(text):
     largeText = pygame.font.Font('freesansbold.ttf', 24)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100),(settings.WINDOW_HEIGHT - 570))
+    TextRect.center = ((settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -71,22 +73,21 @@ def gameLoop():
         drawImg(ship.x, ship.y)
         for bullet in ship.bullets:
             settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
-            bullet.y-=ship.weapon.speed
+            bullet.y -= ship.weapon.speed
             if bullet.y < 0:
                 ship.bullets.remove(bullet)
             for enemy in CURRENT_LEVEL.list_of_enemies:
                 if bullet.y < enemy.y + enemy.height and bullet.y > enemy.y:
                     if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
                         CURRENT_LEVEL.list_of_enemies.remove(enemy)
-                        settings.EXPLOSION_LIST.append([(enemy.x,enemy.y),settings.EXPLOSION_TIME])
-                        settings.BONUSES_LIST.append(bonuses.Test_bonus(enemy.x,enemy.y))
+                        settings.EXPLOSION_LIST.append([(enemy.x, enemy.y), settings.EXPLOSION_TIME])
+                        settings.BONUSES_LIST.append(bonuses.Test_bonus(enemy.x, enemy.y))
                         ship.bullets.remove(bullet)
                         SCORE += 100
 
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
-            bullet.y+=1
-
+            bullet.y += 1
 
         for bonus in settings.BONUSES_LIST:
             settings.WINDOW.blit(bonus.img, (bonus.x, bonus.y))
@@ -96,23 +97,21 @@ def gameLoop():
 
         for enemy in CURRENT_LEVEL.list_of_enemies:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
-            if random.randint(1,1000) < 5:
+            if random.randint(1, 1000) < 5:
                 enemy.shoot()
             if enemy.allocated:
                 enemy.move()
             else:
                 enemy.initialise(0)
-
+                continue
+            if not enemy.initialise_allocated:
+                enemy.go_to_final_position()
 
         for explosion in settings.EXPLOSION_LIST:
-            settings.WINDOW.blit(settings.EXPLOSION_IMG,explosion[0])
+            settings.WINDOW.blit(settings.EXPLOSION_IMG, explosion[0])
             explosion[1] -= 1
-            if(explosion[1]) == 0:
+            if (explosion[1]) == 0:
                 settings.EXPLOSION_LIST.remove(explosion)
-
-
-
-
 
         message_display("Score:" + str(SCORE))
 
@@ -122,7 +121,7 @@ def gameLoop():
         pygame.display.update()
         clock.tick(settings.CLOCK_RATE)
 
+
 gameLoop()
 pygame.quit()
 quit()
-

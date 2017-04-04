@@ -66,7 +66,8 @@ def gameLoop():
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
                     xChange = 0
-
+        if not settings.LIST_OF_LEVELS[0].initialized:
+            settings.LIST_OF_LEVELS[0].start()
         ship.x += xChange
 
         settings.WINDOW.fill(black)
@@ -76,7 +77,7 @@ def gameLoop():
             bullet.y -= ship.weapon.speed
             if bullet.y < 0:
                 ship.bullets.remove(bullet)
-            for enemy in CURRENT_LEVEL.list_of_enemies:
+            for enemy in settings.LIST_OF_ENEMIES:
                 if bullet.y < enemy.y + enemy.height and bullet.y > enemy.y:
                     if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
                         CURRENT_LEVEL.list_of_enemies.remove(enemy)
@@ -99,7 +100,7 @@ def gameLoop():
             if (bonus.y) == 0:
                 settings.BONUSES_LIST.remove(bonus)
 
-        for enemy in CURRENT_LEVEL.list_of_enemies:
+        for enemy in settings.LIST_OF_ENEMIES:
             settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
             if random.randint(1, 1000) < 2:
                 enemy.shoot()
@@ -124,7 +125,7 @@ def gameLoop():
         pygame.display.update()
         clock.tick(settings.CLOCK_RATE)
 
-        if len(CURRENT_LEVEL.list_of_enemies) > 0:
+        if len(settings.LIST_OF_ENEMIES) > 0:
             SCORE += settings.MULTIPLIER
 
 

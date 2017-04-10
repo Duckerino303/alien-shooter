@@ -70,7 +70,7 @@ def gameLoop():
             settings.LIST_OF_LEVELS[0].start()
         ship.x += xChange
 
-        settings.WINDOW.fill(black)
+        settings.WINDOW.blit(settings.BACKGROUND_IMG, (0, 0))
         drawImg(ship.x, ship.y)
         for bullet in ship.bullets:
             settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
@@ -80,7 +80,7 @@ def gameLoop():
             for enemy in settings.LIST_OF_ENEMIES:
                 if bullet.y < enemy.y + enemy.height and bullet.y > enemy.y:
                     if bullet.x > enemy.x and bullet.x < enemy.x + enemy.width:
-                        CURRENT_LEVEL.list_of_enemies.remove(enemy)
+                        settings.LIST_OF_ENEMIES.remove(enemy)
                         settings.EXPLOSION_LIST.append([(enemy.x, enemy.y), settings.EXPLOSION_TIME])
                         settings.BONUSES_LIST.append(bonuses.Test_bonus(enemy.x, enemy.y))
                         try:

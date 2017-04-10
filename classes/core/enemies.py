@@ -43,6 +43,7 @@ class Enemy:
             self.y -= self.speed
         if abs(self.final_position[0] - self.x) <= 5 and  abs(self.final_position[1] - self.y)<=5:
             self.initialise_allocated = True
+
     def move(self):
         if self.direction == 'right':
             self.x += 1

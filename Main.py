@@ -49,6 +49,7 @@ def gameLoop():
     xChange = 0
     LOOP = 0
     gameExit = False
+    gameOver = False
 
     while not gameExit:
         for event in pygame.event.get():
@@ -92,6 +93,10 @@ def gameLoop():
 
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
+            if bullet.y + 10 >= ship.y and bullet.y <= ship.y + 62:
+                if bullet.x + 10 >= ship.x and bullet.x + 10 <= ship.x + 33:
+                    settings.LIST_OF_ENEMY_BULLETS.remove(bullet)
+                    gameOver = True
             bullet.y += 1
 
         for bonus in settings.BONUSES_LIST:

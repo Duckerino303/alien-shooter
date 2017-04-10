@@ -9,11 +9,11 @@ import classes.core.settings as settings
 import classes.core.enemies as enemies
 import classes.core.levels as levels
 import classes.core.bonuses as bonuses
-
+import classes.core.drawer as drawer
 pygame.init()
 
 pygame.display.set_caption('Alien Shooter')
-LEVEL_COUNTER = 0
+LEVEL_COUNTER = -1
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
 # R G B colors
 black = (0, 0, 0)
@@ -67,11 +67,13 @@ def gameLoop():
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
                     xChange = 0
-        if not settings.LIST_OF_LEVELS[0].initialized:
+        if len(settings.LIST_OF_ENEMIES) == 0:
+            global LEVEL_COUNTER
+            LEVEL_COUNTER+=1
+        if not settings.LIST_OF_LEVELS[0].initialized and len(settings.LIST_OF_ENEMIES) == 0:
             settings.LIST_OF_LEVELS[0].start()
         ship.x += xChange
-
-        settings.WINDOW.blit(settings.BACKGROUND_IMG, (0, 0))
+        drawer.start()
         drawImg(ship.x, ship.y)
         for bullet in ship.bullets:
             settings.WINDOW.blit(ship.weapon.img, (bullet.x, bullet.y))
@@ -108,16 +110,6 @@ def gameLoop():
             if (bonus.y) == 0:
                 settings.BONUSES_LIST.remove(bonus)
 
-        for enemy in settings.LIST_OF_ENEMIES:
-            settings.WINDOW.blit(enemy.img, (enemy.x, enemy.y))
-            if random.randint(1, 1000) < 2:
-                enemy.shoot()
-            if enemy.allocated:
-                enemy.move()
-            else:
-                enemy.initialise(0)
-            if not enemy.initialise_allocated:
-                enemy.go_to_final_position()
 
         for explosion in settings.EXPLOSION_LIST:
             settings.WINDOW.blit(settings.EXPLOSION_IMG, explosion[0])

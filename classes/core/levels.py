@@ -11,6 +11,15 @@ class Level:
         self.time = time
         self.number_of_bonuses_ratio = number_of_bonuses_ratio
 
+    def start(self):
+        self.init_enemy_moves()
+        self.initialized = True
+        thread = threading.Thread(target=self.spawn)
+        thread.start()
+
+    def spawn(self):
+        pass
+
 
 
 class Level1(Level):
@@ -19,8 +28,8 @@ class Level1(Level):
         self.ls = []
         self.initialized = False
     def init_enemy_moves(self):
-        x = int(800 / 2)
-        y = 0
+        x = int(settings.WINDOW_WIDTH / 2)
+        y = -10
         offset = 0
         flag = 'right'
         for i in range(300):
@@ -38,12 +47,7 @@ class Level1(Level):
                 offset -= 1
     # for i in range(super.time):
     #     list_of_enemies.append()
-    def start(self):
-        self.init_enemy_moves()
-        self.initialized = True
-        thread = threading.Thread(target=self.spawn)
-        #thread.daemon = False  # Daemonize thread
-        thread.start()  # Start the executio
+
 
 
     def spawn(self):

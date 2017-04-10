@@ -32,10 +32,10 @@ def text_objects(text, font):
     return textSurface, textSurface.get_rect()
 
 
-def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf', 24)
+def message_display(text, x, y, size = 24):
+    largeText = pygame.font.Font('freesansbold.ttf', size)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+    TextRect.center = (x, y)
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -96,7 +96,10 @@ def gameLoop():
             if bullet.y + 10 >= ship.y and bullet.y <= ship.y + 62:
                 if bullet.x + 10 >= ship.x and bullet.x + 10 <= ship.x + 33:
                     settings.LIST_OF_ENEMY_BULLETS.remove(bullet)
-                    gameOver = True
+                    if settings.LIVES > 0:
+                        settings.LIVES -= 1
+                    elif settings.LIVES <= 0:
+                        gameOver = True
             bullet.y += 1
 
         for bonus in settings.BONUSES_LIST:
@@ -122,12 +125,21 @@ def gameLoop():
             if (explosion[1]) == 0:
                 settings.EXPLOSION_LIST.remove(explosion)
 
-        message_display("Score:" + str(SCORE))
+        message_display("Score: " + str(SCORE), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+        message_display("Lives: " + str(settings.LIVES), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 540))
+
+        if gameOver == True:
+            message_display("Game over", (settings.WINDOW_WIDTH / 2), (settings.WINDOW_HEIGHT / 2), 68)
 
         if ship.x > settings.WINDOW_WIDTH - settings.SHIP_WIDTH or ship.x < 0:
             xChange = 0
 
         pygame.display.update()
+
+        if gameOver == True:
+            time.sleep(3)
+            gameOver = False
+
         clock.tick(settings.CLOCK_RATE)
 
         if len(settings.LIST_OF_ENEMIES) > 0:

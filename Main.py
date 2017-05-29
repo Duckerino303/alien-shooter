@@ -74,9 +74,12 @@ def gameLoop():
                 enemy.hit(ship.weapon.dmg)
                 settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(enemy.rect.x,enemy.rect.y))
                 bullet.kill()
+
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             bullet.update()
             bullet.draw()
+
+        ship_hit = pygame.sprite.spritecollide(ship, settings.LIST_OF_ENEMY_BULLETS, True)
 
 
         #rysowanie przeciwnikow
@@ -103,6 +106,7 @@ def gameLoop():
 
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)
+
 gameLoop()
 pygame.quit()
 quit()

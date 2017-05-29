@@ -8,8 +8,8 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.img = pygame.image.load('resources/images/ship.png')
         self.rect = self.img.get_rect()
-        self.hp = 100
         self.speed = 0
+        self.lives = 3
         self.bullet_speed = 50
         self.weapon = None
         self.max_bullets = 5

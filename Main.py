@@ -72,7 +72,6 @@ def gameLoop():
             hit_group = pygame.sprite.spritecollide(bullet, settings.LIST_OF_ENEMIES, False)
             for enemy in hit_group:
                 enemy.hit(ship.weapon.dmg)
-                settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(enemy.rect.x,enemy.rect.y))
                 bullet.kill()
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             bullet.update()
@@ -91,6 +90,7 @@ def gameLoop():
             if random.randint(1, 1000) < 5:
                 enemy.shoot()
 
+        #rysowanie eksplozji
         for explosion in settings.LIST_OF_EXPLOSIONS:
             if explosion.counter == 0:
                 explosion.kill()

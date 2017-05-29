@@ -13,7 +13,8 @@ class Level:
 
     def start(self):
         print('startowanie levelu')
-        self.init_enemy_moves()
+        thread = threading.Thread(target=self.init_enemy_moves)
+        thread.start()
         self.initialized = True
         thread = threading.Thread(target=self.spawn)
         thread.start()

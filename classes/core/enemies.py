@@ -69,6 +69,7 @@ class Enemy(pygame.sprite.Sprite):
         self.hp -= power
         if self.hp<=0:
             settings.BONUSES_LIST.add(bonuses.Test_bonus(self.rect.x,self.rect.y))
+            settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(self.rect.x,self.rect.y))
             self.kill()
 
 class Enemy1(Enemy):

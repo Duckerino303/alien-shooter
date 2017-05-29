@@ -22,18 +22,16 @@ ship.rect.centerx = settings.WINDOW_WIDTH // 2
 ship.rect.bottom = settings.WINDOW_HEIGHT
 LEVEL_COUNTER = -1
 def initialiseGame():
-    #dodawanie broni
+    #adding weapons
     settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single shot',1,3,'resources/images/single-shot.png'))
 
-    #dodawanie leveli
+    #adding levels
     settings.LIST_OF_LEVELS.append(levels.Level1())
     settings.LIST_OF_LEVELS.append(levels.Level2())
 
-    #dodanie początkowej broni dla naszego statku
+    #adding first weapon
     ship.weapon = settings.LIST_OF_WEAPONS[0]
 
-    #startowanie 1 levela
-    #settings.LIST_OF_LEVELS[LEVEL_COUNTER].start()
 initialiseGame()
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
 
@@ -66,7 +64,7 @@ def gameLoop():
         ship.update()
         ship.draw()
 
-        #rysowanie bulletow
+        #drawing bullets
         for bullet in settings.BULLETS:
             bullet.update()
             bullet.draw()
@@ -78,12 +76,15 @@ def gameLoop():
             bullet.update()
             bullet.draw()
 
-        #sprawdzenie czy są przeciwnicy, jesli nie przechodzimy do nastepnego levelu:
-        if not settings.LIST_OF_ENEMIES:
+        #checking if you pass the level:
+        if not settings.LIST_OF_ENEMIES and settings.LEVEL_WIN:
             global LEVEL_COUNTER
             LEVEL_COUNTER+=1
-            CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
-            CURRENT_LEVEL.start()
+            if LEVEL_COUNTER < len(settings.LIST_OF_LEVELS):
+                CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
+                CURRENT_LEVEL.start()
+            else:
+                print('Wygrałeś grę')
 
         #rysowanie przeciwnikow
         for enemy in settings.LIST_OF_ENEMIES:
@@ -99,16 +100,22 @@ def gameLoop():
             if random.randint(1, 1000) < 5:
                 enemy.shoot()
 
-        #rysowanie eksplozji
+        #drawing explosions
         for explosion in settings.LIST_OF_EXPLOSIONS:
             if explosion.counter == 0:
                 explosion.kill()
             settings.WINDOW.blit(settings.EXPLOSION_IMG,(explosion.rect.x,explosion.rect.y))
             explosion.counter -= 1
 
+        #drawing available bonuses
         for bonus in settings.BONUSES_LIST:
             bonus.update()
             bonus.draw()
+            #checking if player collected bonus
+            if pygame.sprite.collide_rect(ship, bonus):
+                bonus.action()
+                bonus.kill()
+
 
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)

@@ -12,7 +12,7 @@ class Ship(pygame.sprite.Sprite):
         self.speed = 0
         self.bullet_speed = 50
         self.weapon = None
-        self.max_bullets = 5
+        self.max_bullets = 999
 
 
     def shoot(self):

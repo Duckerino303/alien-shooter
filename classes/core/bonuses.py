@@ -1,5 +1,6 @@
 import pygame
 import classes.core.settings as settings
+import abc
 class Bonus(pygame.sprite.Sprite):
     def __init__(self,name,speed,img,sound,x,y):
         super().__init__()
@@ -22,6 +23,13 @@ class Bonus(pygame.sprite.Sprite):
             settings.BONUSES_LIST.remove(self)
             self.kill()
 
+    #bonus action
+    def action(self, ship):
+        pass
+
 class Test_bonus(Bonus):
     def __init__(self,x,y):
         super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self):
+        print('Zebrałeś bonus')

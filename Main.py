@@ -20,7 +20,7 @@ clock = settings.CLOCK
 ship = ships.Ship()
 ship.rect.centerx = settings.WINDOW_WIDTH // 2
 ship.rect.bottom = settings.WINDOW_HEIGHT
-LEVEL_COUNTER = -1
+
 def initialiseGame():
     #adding weapons
     settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single shot',1,3,'resources/images/single-shot.png'))
@@ -28,22 +28,30 @@ def initialiseGame():
     #adding levels
     settings.LIST_OF_LEVELS.append(levels.Level1())
     settings.LIST_OF_LEVELS.append(levels.Level2())
+    settings.LIST_OF_LEVELS.append(levels.Level3())
+    settings.LIST_OF_LEVELS.append(levels.Level4())
+    settings.LIST_OF_LEVELS.append(levels.Level5())
+    settings.LIST_OF_LEVELS.append(levels.Level6())
+    settings.LIST_OF_LEVELS.append(levels.Level7())
+    settings.LIST_OF_LEVELS.append(levels.Level8())
+    settings.LIST_OF_LEVELS.append(levels.Level9())
+    settings.LIST_OF_LEVELS.append(levels.Level10())
 
     #adding first weapon
     ship.weapon = settings.LIST_OF_WEAPONS[0]
 
 initialiseGame()
-CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
+CURRENT_LEVEL = settings.LIST_OF_LEVELS[settings.LEVEL_COUNTER]
 
 def text_objects(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
 
-def message_display(text):
+def message_display(text, x, y):
     largeText = pygame.font.Font('freesansbold.ttf', 24)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+    TextRect.center = (x, y)
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -70,18 +78,25 @@ def gameLoop():
             bullet.draw()
             hit_group = pygame.sprite.spritecollide(bullet, settings.LIST_OF_ENEMIES, False)
             for enemy in hit_group:
-                enemy.hit(ship.weapon.dmg)
+                enemy.hit(ship.weapon.dmg, settings.LEVEL_COUNTER)
                 bullet.kill()
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             bullet.update()
             bullet.draw()
+            if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0:
+                bullet.kill()
+                ship.lives -= 1
+                ship.kill()
+            elif pygame.sprite.collide_rect(ship, bullet):
+                ship.kill()
+                gameOver = True
 
         #checking if you pass the level:
         if not settings.LIST_OF_ENEMIES and settings.LEVEL_WIN:
-            global LEVEL_COUNTER
-            LEVEL_COUNTER+=1
-            if LEVEL_COUNTER < len(settings.LIST_OF_LEVELS):
-                CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
+            settings.LEVEL_COUNTER+=1
+            print('Level ' + str(settings.LEVEL_COUNTER + 1))
+            if settings.LEVEL_COUNTER < len(settings.LIST_OF_LEVELS):
+                CURRENT_LEVEL = settings.LIST_OF_LEVELS[settings.LEVEL_COUNTER]
                 CURRENT_LEVEL.start()
             else:
                 print('Wygrałeś grę')
@@ -90,15 +105,14 @@ def gameLoop():
         for enemy in settings.LIST_OF_ENEMIES:
             enemy.draw()
             if not enemy.allocated:
-                enemy.initialise(LEVEL_COUNTER)
+                enemy.initialise(settings.LEVEL_COUNTER)
             elif not enemy.initialise_allocated:
                 enemy.go_to_final_position()
             elif enemy.attack_flag:
                 enemy.attack()
             else:
                 enemy.move()
-            if random.randint(1, 1000) < 5:
-                enemy.shoot()
+            enemy.shoot()
 
         #drawing explosions
         for explosion in settings.LIST_OF_EXPLOSIONS:
@@ -116,6 +130,12 @@ def gameLoop():
                 bonus.action()
                 bonus.kill()
 
+        message_display("lives: {}".format(ship.lives), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+        if gameOver:
+            message_display("Game over!", (settings.WINDOW_WIDTH // 2), (settings.WINDOW_HEIGHT // 2))
+            settings.reset()
+        if settings.LEVEL_COUNTER == 9:
+            message_display("Boss HP: {}".format(settings.BOSS_HP), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 470))
 
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)

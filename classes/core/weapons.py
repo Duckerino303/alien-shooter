@@ -41,7 +41,7 @@ class EnemyBullet(pygame.sprite.Sprite):
         settings.WINDOW.blit(settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].img, self.rect)
 
     def update(self):
-        self.rect.y += settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].speed
+        self.rect.y += settings.ENEMY_BULLET_SPEED
         if self.rect.bottom < 0:
             settings.BULLETS.remove(self)
             self.kill()

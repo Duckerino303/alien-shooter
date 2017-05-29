@@ -2,7 +2,6 @@ import pygame
 import random
 import classes.core.settings as settings
 import classes.core.weapons as weapons
-import classes.core.drawer as drawer
 import classes.core.bonuses as bonuses
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, speed, damage, hp, bullet_speed, img, sound, x, y, final_x, final_y, initialise_counter, init_steps):
@@ -40,6 +39,7 @@ class Enemy(pygame.sprite.Sprite):
         self.start = x, y
         #czy obecnie atakuje
         self.attack_flag = False
+        self.shoot_ratio = 5
 
     #start move
     def initialise(self, level):
@@ -60,7 +60,7 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.y += self.speed
         else:
             self.rect.y -= self.speed
-        if abs(self.final_position[0] - self.rect.x) <= 2 and abs(self.final_position[1] - self.rect.y)<=2:
+        if abs(self.final_position[0] - self.rect.x) <= 5 and abs(self.final_position[1] - self.rect.y)<=5:
             self.initialise_allocated = True
 
     #moving to the right and left, after gaining final position
@@ -86,13 +86,14 @@ class Enemy(pygame.sprite.Sprite):
             self.initialise_allocated = False
 
     def shoot(self):
-        settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x, self.rect.y))
+        if random.randint(1, 1000) < self.shoot_ratio:
+            settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x, self.rect.y))
 
     def draw(self):
         settings.WINDOW.blit(self.img, self.rect)
 
     #it's called when you hit enemy
-    def hit(self,power):
+    def hit(self,power, level):
         self.hp -= power
         if self.hp<=0:
             bonus_chance = random.randint(0,10)
@@ -101,11 +102,48 @@ class Enemy(pygame.sprite.Sprite):
             settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(self.rect.x,self.rect.y))
             self.kill()
             settings.LIST_OF_ENEMIES.remove(self)
+            settings.ENEMIES_KILLED += 1
             #check if last enemy, if yes changing settings.LEVEL_WIN to true
-            if len(settings.LIST_OF_ENEMIES) ==0:
+            if len(settings.LIST_OF_ENEMIES) ==0 and settings.ENEMIES_KILLED == settings.LIST_OF_LEVELS[level].number_of_enemies:
                 settings.LEVEL_WIN = True
 
 
 class Enemy1(Enemy):
     def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
-        super().__init__(1, 1, 2, 10, 'resources/images/enemy1.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        super().__init__(3, 1, 2, 10, 'resources/images/enemy1.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 5
+
+
+class Boss(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(3, 1, 1000, 10, 'resources/images/VS_demilich.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        self.shoot_ratio = 10
+        settings.ENEMY_BULLET_SPEED = 10
+        self.radius = 150
+    def shoot(self):
+        if random.randint(1, 1000) < self.shoot_ratio:
+            change = random.randint(1,200)
+            settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x + change, self.rect.y))
+    def move(self):
+        if self.direction == 'right':
+            self.rect.x += 1
+            if self.rect.x > self.final_position[0] + self.radius:
+                self.direction = 'left'
+        if self.direction == 'left':
+            self.rect.x -= 1
+            if self.rect.x < self.final_position[0] - self.radius:
+                self.direction = 'right'
+    def hit(self,power, level):
+        self.hp -= power
+        settings.BOSS_HP -= power
+        if self.hp<=0:
+            bonus_chance = random.randint(0,10)
+            if bonus_chance < 1:
+                settings.BONUSES_LIST.add(bonuses.Test_bonus(self.rect.x,self.rect.y))
+            settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(self.rect.x,self.rect.y))
+            self.kill()
+            settings.LIST_OF_ENEMIES.remove(self)
+            settings.ENEMIES_KILLED += 1
+            #check if last enemy, if yes changing settings.LEVEL_WIN to true
+            if len(settings.LIST_OF_ENEMIES) ==0 and settings.ENEMIES_KILLED == settings.LIST_OF_LEVELS[level].number_of_enemies:
+                settings.LEVEL_WIN = True

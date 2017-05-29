@@ -22,13 +22,24 @@ BONUSES_LIST = pygame.sprite.Group()
 
 CURRENT_WEAPON = 0
 LIST_OF_WEAPONS = []
+
 LEVEL_WIN = True
+LEVEL_COUNTER = -1
 
 BULLETS = pygame.sprite.Group()
 
 LIST_OF_LEVELS = []
 
 LIST_OF_ENEMY_BULLETS = pygame.sprite.Group()
+ENEMY_BULLET_SPEED = 0
+
 LIST_OF_ENEMIES = pygame.sprite.Group()
+ENEMIES_KILLED = 0
+BOSS_HP = 1000
 
 MULTIPLIER = 1
+
+def reset():
+    global LIST_OF_ENEMY_BULLETS, LIST_OF_ENEMIES
+    LIST_OF_ENEMY_BULLETS = pygame.sprite.Group()
+    LIST_OF_ENEMIES = pygame.sprite.Group()

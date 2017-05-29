@@ -6,17 +6,16 @@ import classes.core.settings as settings
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single shot',1,3,'resources/images/single-shot.png'))
         self.img = pygame.image.load('resources/images/ship.png')
         self.rect = self.img.get_rect()
         self.hp = 100
         self.speed = 0
         self.bullet_speed = 50
-        self.weapon = settings.LIST_OF_WEAPONS[0]
+        self.weapon = None
         self.max_bullets = 5
 
 
-    def shot(self):
+    def shoot(self):
         if len(settings.BULLETS) < self.max_bullets:
             settings.BULLETS.add(
                 weapons.Bullet(settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].speed,self.rect.centerx -5,self.rect.top))
@@ -48,7 +47,7 @@ class Ship(pygame.sprite.Sprite):
             elif event.key == pygame.K_RIGHT:
                 self.move_right()
             elif event.key == pygame.K_SPACE:
-                self.shot()
+                self.shoot()
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT and self.speed < 0:
                 self.stop()

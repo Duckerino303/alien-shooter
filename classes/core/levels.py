@@ -12,6 +12,7 @@ class Level:
         self.number_of_bonuses_ratio = number_of_bonuses_ratio
 
     def start(self):
+        print('startowanie levelu')
         self.init_enemy_moves()
         self.initialized = True
         thread = threading.Thread(target=self.spawn)
@@ -24,15 +25,16 @@ class Level:
 class Level1(Level):
     def __init__(self):
         super().__init__(1, 1, 1)
-        self.ls = []
+        self.moves_list = []
         self.initialized = False
     def init_enemy_moves(self):
+        print('inicializacja ruchwo przeciwnikow')
         x = int(settings.WINDOW_WIDTH / 2)
         y = -10
         offset = 0
         flag = 'right'
         for i in range(300):
-            self.ls.append((x, y))
+            self.moves_list.append((x, y))
             y += 1
             if (offset == 10):
                 flag = 'left'
@@ -50,15 +52,16 @@ class Level1(Level):
 
 
     def spawn(self):
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 100, 100))
+        print('Level 1, spawnowanie przeciwnikow')
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 100, 100))
         time.sleep(1)
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 300, 100))
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 300, 100))
         time.sleep(1)
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 500, 100))
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 500, 100))
         time.sleep(1)
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 100, 200))
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 100, 200))
         time.sleep(1)
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 300, 200))
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 300, 200))
         time.sleep(1)
-        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.ls[0][0], self.ls[0][1], 500, 200))
+        settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 500, 200))
 

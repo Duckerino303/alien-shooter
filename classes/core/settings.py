@@ -1,6 +1,6 @@
 import pygame
 
-CLOCK_RATE = 120
+CLOCK_RATE = 60
 CLOCK = pygame.time.Clock()
 
 WINDOW_HEIGHT = 600
@@ -26,7 +26,7 @@ BULLETS = pygame.sprite.Group()
 
 LIST_OF_LEVELS = []
 
-LIST_OF_ENEMY_BULLETS = []
+LIST_OF_ENEMY_BULLETS = pygame.sprite.Group()
 LIST_OF_ENEMIES = pygame.sprite.Group()
 
 MULTIPLIER = 1

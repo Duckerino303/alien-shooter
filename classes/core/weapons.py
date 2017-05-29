@@ -28,3 +28,20 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.bottom < 0:
             settings.BULLETS.remove(self)
             self.kill()
+
+class EnemyBullet(pygame.sprite.Sprite):
+    def __init__(self, speed, x, y):
+        super().__init__()
+        self.rect = settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.speed = speed
+
+    def draw(self):
+        settings.WINDOW.blit(settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].img, self.rect)
+
+    def update(self):
+        self.rect.y += settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].speed
+        if self.rect.bottom < 0:
+            settings.BULLETS.remove(self)
+            self.kill()

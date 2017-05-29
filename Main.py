@@ -4,6 +4,8 @@ import sys
 import classes.core.ship as ships
 import classes.core.settings as settings
 import classes.core.levels as levels
+import random
+import classes.core.weapons as weapons
 pygame.init()
 pygame.display.set_caption('Alien Shooter')
 # R G B colors
@@ -18,10 +20,20 @@ clock = settings.CLOCK
 ship = ships.Ship()
 ship.rect.centerx = settings.WINDOW_WIDTH // 2
 ship.rect.bottom = settings.WINDOW_HEIGHT
-def initialiseGame():
-    settings.LIST_OF_LEVELS.append(levels.Level1())
-initialiseGame()
 LEVEL_COUNTER = 0
+def initialiseGame():
+    #dodawanie broni
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single shot',1,3,'resources/images/single-shot.png'))
+
+    #dodawanie leveli
+    settings.LIST_OF_LEVELS.append(levels.Level1())
+
+    #dodanie początkowej broni dla naszego statku
+    ship.weapon = settings.LIST_OF_WEAPONS[0]
+
+    #startowanie 1 levela
+    settings.LIST_OF_LEVELS[LEVEL_COUNTER].start()
+initialiseGame()
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
 
 def text_objects(text, font):
@@ -38,10 +50,8 @@ def message_display(text):
 
 def gameLoop():
     SCORE = 0
-    xChange = 0
     gameExit = False
     gameOver = False
-    currentLevel = 0
 
 
     while not gameExit:
@@ -59,10 +69,27 @@ def gameLoop():
         for bullet in settings.BULLETS:
             bullet.update()
             bullet.draw()
+            hit_group = pygame.sprite.spritecollide(bullet, settings.LIST_OF_ENEMIES, False)
+            for enemy in hit_group:
+                enemy.hit(ship.weapon.dmg)
 
+                bullet.kill()
+        for bullet in settings.LIST_OF_ENEMY_BULLETS:
+            bullet.update()
+            bullet.draw()
+
+
+        #rysowanie przeciwnikow
         for enemy in settings.LIST_OF_ENEMIES:
             enemy.draw()
-            enemy.go_to_final_position()
+            if not enemy.allocated:
+                enemy.initialise(LEVEL_COUNTER)
+            elif not enemy.initialise_allocated:
+                enemy.go_to_final_position()
+            else:
+                enemy.move()
+            if random.randint(1, 1000) < 5:
+                enemy.shoot()
 
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)

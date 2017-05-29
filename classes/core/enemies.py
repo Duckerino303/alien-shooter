@@ -2,6 +2,7 @@ import pygame
 import random
 import classes.core.settings as settings
 import classes.core.weapons as weapons
+import classes.core.drawer as drawer
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, speed, damage, hp, img, sound, x, y, final_x, final_y):
         super().__init__()
@@ -12,7 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         self.sound = sound
         self.width = 33
         self.height = 33
-        self.start = self.rect.x, self.rect.y
+        self.bullet_speed = 10
         self.final_position = final_x,final_y
         self.radius = random.randint(15,45)
         self.allocated=False
@@ -25,9 +26,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.img.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.start = x, y
 
     def initialise(self,level):
-        ls = settings.LIST_OF_LEVELS[level].ls
+        ls = settings.LIST_OF_LEVELS[level].moves_list
         self.rect.x = ls[self.initialise_counter][0]
         self.rect.y = ls[self.initialise_counter][1]
         self.initialise_counter+=1
@@ -57,11 +59,17 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = 'right'
 
     def shoot(self):
-        settings.LIST_OF_ENEMY_BULLETS.append(weapons.Bullet(self.rect.x,self.rect.y))
+        settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x, self.rect.y))
 
     def draw(self):
         settings.WINDOW.blit(self.img, self.rect)
 
+    def hit(self,power):
+        self.hp -= power
+        drawer.explosion(self.rect.x,self.rect.y)
+        if self.hp<=0:
+            self.kill()
+
 class Enemy1(Enemy):
     def __init__(self,x,y, final_x, final_y):
-        super().__init__(1, 1, 1, 'resources/images/enemy1.png', None,x, y, final_x, final_y)
+        super().__init__(1, 1, 2, 'resources/images/enemy1.png', None,x, y, final_x, final_y)

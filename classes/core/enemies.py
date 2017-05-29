@@ -66,7 +66,6 @@ class Enemy(pygame.sprite.Sprite):
 
     def hit(self,power):
         self.hp -= power
-        drawer.explosion(self.rect.x,self.rect.y)
         if self.hp<=0:
             self.kill()
 

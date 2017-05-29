@@ -45,3 +45,11 @@ class EnemyBullet(pygame.sprite.Sprite):
         if self.rect.bottom < 0:
             settings.BULLETS.remove(self)
             self.kill()
+
+class Explosion(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        self.rect =settings.EXPLOSION_IMG.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.counter = settings.EXPLOSION_TIME

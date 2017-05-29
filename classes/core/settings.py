@@ -16,6 +16,7 @@ BACKGROUND_IMG = pygame.image.load('resources/images/background.jpg')
 
 EXPLOSION_LIST = []
 EXPLOSION_TIME = 15
+LIST_OF_EXPLOSIONS = pygame.sprite.Group()
 
 BONUSES_LIST = []
 

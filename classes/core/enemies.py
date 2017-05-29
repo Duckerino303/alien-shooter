@@ -28,6 +28,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.start = x, y
+        self.attack_flag = False
 
     def initialise(self,level):
         ls = settings.LIST_OF_LEVELS[level].moves_list
@@ -58,7 +59,16 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x -= 1
             if self.rect.x < self.final_position[0] - self.radius:
                 self.direction = 'right'
+        attackChoice = random.randint(1,1000)
+        if attackChoice < 3:
+            self.attack_flag = True
 
+    def attack(self):
+        self.rect.y += 2*self.speed
+        if self.rect.y >= settings.WINDOW_HEIGHT:
+            self.rect.y = 0
+            self.attack_flag = False
+            self.initialise_allocated = False
     def shoot(self):
         settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x, self.rect.y))
 

@@ -20,19 +20,20 @@ clock = settings.CLOCK
 ship = ships.Ship()
 ship.rect.centerx = settings.WINDOW_WIDTH // 2
 ship.rect.bottom = settings.WINDOW_HEIGHT
-LEVEL_COUNTER = 0
+LEVEL_COUNTER = -1
 def initialiseGame():
     #dodawanie broni
     settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single shot',1,3,'resources/images/single-shot.png'))
 
     #dodawanie leveli
     settings.LIST_OF_LEVELS.append(levels.Level1())
+    settings.LIST_OF_LEVELS.append(levels.Level2())
 
     #dodanie początkowej broni dla naszego statku
     ship.weapon = settings.LIST_OF_WEAPONS[0]
 
     #startowanie 1 levela
-    settings.LIST_OF_LEVELS[LEVEL_COUNTER].start()
+    #settings.LIST_OF_LEVELS[LEVEL_COUNTER].start()
 initialiseGame()
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
 
@@ -77,6 +78,12 @@ def gameLoop():
             bullet.update()
             bullet.draw()
 
+        #sprawdzenie czy są przeciwnicy, jesli nie przechodzimy do nastepnego levelu:
+        if not settings.LIST_OF_ENEMIES:
+            global LEVEL_COUNTER
+            LEVEL_COUNTER+=1
+            CURRENT_LEVEL = settings.LIST_OF_LEVELS[LEVEL_COUNTER]
+            CURRENT_LEVEL.start()
 
         #rysowanie przeciwnikow
         for enemy in settings.LIST_OF_ENEMIES:
@@ -85,6 +92,8 @@ def gameLoop():
                 enemy.initialise(LEVEL_COUNTER)
             elif not enemy.initialise_allocated:
                 enemy.go_to_final_position()
+            elif enemy.attack_flag:
+                enemy.attack()
             else:
                 enemy.move()
             if random.randint(1, 1000) < 5:

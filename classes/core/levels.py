@@ -10,6 +10,8 @@ class Level:
         self.number_of_enemies = number_of_enemies
         self.time = time
         self.number_of_bonuses_ratio = number_of_bonuses_ratio
+        self.moves_list = []
+        self.initialized = False
 
     def start(self):
         print('startowanie levelu')
@@ -26,8 +28,7 @@ class Level:
 class Level1(Level):
     def __init__(self):
         super().__init__(1, 1, 1)
-        self.moves_list = []
-        self.initialized = False
+
     def init_enemy_moves(self):
         print('inicializacja ruchwo przeciwnikow')
         x = int(settings.WINDOW_WIDTH / 2)
@@ -54,6 +55,28 @@ class Level1(Level):
 
     def spawn(self):
         print('Level 1, spawnowanie przeciwnikow')
+        for i in range(1,8):
+            for j in range (1,3):
+                settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], i*100, j*100))
+                time.sleep(1)
+
+
+class Level2(Level):
+    def __init__(self):
+        super().__init__(1, 1, 1)
+
+    def init_enemy_moves(self):
+        print('level 2 inicializacja ruchwo przeciwnikow')
+        x = int(settings.WINDOW_WIDTH / 2)
+        y = -10
+        offset = 0
+        flag = 'right'
+        for i in range(300):
+            self.moves_list.append((x, y))
+            y += 1
+
+    def spawn(self):
+        print('Level 2, spawnowanie przeciwnikow')
         settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 100, 100))
         time.sleep(1)
         settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 300, 100))
@@ -65,4 +88,3 @@ class Level1(Level):
         settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 300, 200))
         time.sleep(1)
         settings.LIST_OF_ENEMIES.add(enemies.Enemy1(self.moves_list[0][0], self.moves_list[0][1], 500, 200))
-

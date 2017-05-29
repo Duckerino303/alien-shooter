@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
+import time
 import classes.core.ship as ships
 import classes.core.settings as settings
 import classes.core.levels as levels
@@ -41,10 +42,10 @@ def text_objects(text, font):
     return textSurface, textSurface.get_rect()
 
 
-def message_display(text):
+def message_display(text, x, y):
     largeText = pygame.font.Font('freesansbold.ttf', 24)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+    TextRect.center = (x, y)
     settings.WINDOW.blit(TextSurf, TextRect)
 
 
@@ -65,6 +66,11 @@ def gameLoop():
         ship.update()
         ship.draw()
 
+        message_display("lives: {}".format(ship.lives), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+
+        if gameOver:
+            message_display("Game over!", (settings.WINDOW_WIDTH // 2), (settings.WINDOW_HEIGHT // 2))
+
         #rysowanie bulletow
         for bullet in settings.BULLETS:
             bullet.update()
@@ -78,11 +84,17 @@ def gameLoop():
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             bullet.update()
             bullet.draw()
-
-        ship_hit = pygame.sprite.spritecollide(ship, settings.LIST_OF_ENEMY_BULLETS, True)
+            if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0:
+                bullet.kill()
+                ship.lives -= 1
+                ship.kill()
+            elif pygame.sprite.collide_rect(ship, bullet):
+                ship.kill()
+                gameOver = True
 
 
         #rysowanie przeciwnikow
+
         for enemy in settings.LIST_OF_ENEMIES:
             enemy.draw()
             if not enemy.allocated:

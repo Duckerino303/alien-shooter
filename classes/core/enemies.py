@@ -3,6 +3,7 @@ import random
 import classes.core.settings as settings
 import classes.core.weapons as weapons
 import classes.core.drawer as drawer
+import classes.core.bonuses as bonuses
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, speed, damage, hp, img, sound, x, y, final_x, final_y):
         super().__init__()
@@ -67,6 +68,7 @@ class Enemy(pygame.sprite.Sprite):
     def hit(self,power):
         self.hp -= power
         if self.hp<=0:
+            settings.BONUSES_LIST.add(bonuses.Test_bonus(self.rect.x,self.rect.y))
             self.kill()
 
 class Enemy1(Enemy):

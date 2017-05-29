@@ -96,6 +96,11 @@ def gameLoop():
                 explosion.kill()
             settings.WINDOW.blit(settings.EXPLOSION_IMG,(explosion.rect.x,explosion.rect.y))
             explosion.counter -= 1
+
+        for bonus in settings.BONUSES_LIST:
+            bonus.update()
+            bonus.draw()
+
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)
 gameLoop()

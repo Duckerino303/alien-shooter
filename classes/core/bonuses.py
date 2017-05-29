@@ -1,5 +1,5 @@
 import pygame
-
+import classes.core.settings as settings
 class Bonus(pygame.sprite.Sprite):
     def __init__(self,name,speed,img,sound,x,y):
         super().__init__()
@@ -9,11 +9,18 @@ class Bonus(pygame.sprite.Sprite):
         self.sound = sound
         self.width = 33
         self.height = 33
-        self.x = x
-        self.y = y
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
-    def draw(self,surface):
-        surface.blit(self.img, self.rect)
+    def draw(self):
+        settings.WINDOW.blit(self.img, self.rect)
+
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.top > settings.WINDOW_HEIGHT:
+            settings.BONUSES_LIST.remove(self)
+            self.kill()
 
 class Test_bonus(Bonus):
     def __init__(self,x,y):

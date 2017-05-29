@@ -18,7 +18,7 @@ EXPLOSION_LIST = []
 EXPLOSION_TIME = 15
 LIST_OF_EXPLOSIONS = pygame.sprite.Group()
 
-BONUSES_LIST = []
+BONUSES_LIST = pygame.sprite.Group()
 
 CURRENT_WEAPON = 0
 LIST_OF_WEAPONS = []

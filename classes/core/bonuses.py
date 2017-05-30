@@ -27,9 +27,58 @@ class Bonus(pygame.sprite.Sprite):
     def action(self, ship):
         pass
 
-class Test_bonus(Bonus):
+class SpeedUp(Bonus):
     def __init__(self,x,y):
         super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
 
-    def action(self):
-        print('Zebrałeś bonus')
+    def action(self,ship):
+        ship.speed+=1
+
+class BulletUp(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.max_bullets+=1
+
+class Life(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.lives+=1
+
+class Multix2(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        settings.MULTIPLIER = 2
+
+class DoubleShoot(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.weapon = settings.LIST_OF_WEAPONS[1]
+
+class TripleShoot(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.weapon = settings.LIST_OF_WEAPONS[2]
+
+class QuadShoot(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.weapon = settings.LIST_OF_WEAPONS[3]
+
+class SuperTripleShoot(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+
+    def action(self,ship):
+        ship.weapon = settings.LIST_OF_WEAPONS[4]

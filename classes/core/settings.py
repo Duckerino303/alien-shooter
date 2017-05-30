@@ -14,13 +14,14 @@ WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 EXPLOSION_IMG = pygame.image.load('resources/images/explosion.png')
 BACKGROUND_IMG = pygame.image.load('resources/images/background.jpg')
 COLUMN_IMG = pygame.image.load('resources/images/column.png')
+
 EXPLOSION_LIST = []
 EXPLOSION_TIME = 15
 LIST_OF_EXPLOSIONS = pygame.sprite.Group()
 
 BONUSES_LIST = pygame.sprite.Group()
 
-CURRENT_WEAPON = 0
+CURRENT_WEAPON = 5
 LIST_OF_WEAPONS = []
 
 LEVEL_WIN = True

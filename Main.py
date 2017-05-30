@@ -23,8 +23,12 @@ ship.rect.bottom = settings.WINDOW_HEIGHT
 
 def initialiseGame():
     #adding weapons
-    settings.LIST_OF_WEAPONS.append(weapons.Weapon('Single',1,3,'resources/images/single-shot.png'))
-
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon1())
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon2())
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon3())
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon4())
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon5())
+    settings.LIST_OF_WEAPONS.append(weapons.Weapon6())
     #adding levels
     settings.LIST_OF_LEVELS.append(levels.Level1())
     settings.LIST_OF_LEVELS.append(levels.Level2())
@@ -38,7 +42,7 @@ def initialiseGame():
     settings.LIST_OF_LEVELS.append(levels.Level10())
 
     #adding first weapon
-    ship.weapon = settings.LIST_OF_WEAPONS[0]
+    ship.weapon = settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON]
 
 initialiseGame()
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[settings.LEVEL_COUNTER]
@@ -127,7 +131,7 @@ def gameLoop():
             bonus.draw()
             #checking if player collected bonus
             if pygame.sprite.collide_rect(ship, bonus):
-                bonus.action()
+                bonus.action(ship)
                 bonus.kill()
 
         #columns

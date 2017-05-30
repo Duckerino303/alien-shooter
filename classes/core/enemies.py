@@ -98,7 +98,21 @@ class Enemy(pygame.sprite.Sprite):
         if self.hp<=0:
             bonus_chance = random.randint(0,10)
             if bonus_chance < 1:
-                settings.BONUSES_LIST.add(bonuses.Test_bonus(self.rect.x,self.rect.y))
+                bonus = random.randint(0,7)
+                if bonus==0:
+                    settings.BONUSES_LIST.add(bonuses.SpeedUp(self.rect.x,self.rect.y))
+                elif bonus==1:
+                    settings.BONUSES_LIST.add(bonuses.BulletUp(self.rect.x,self.rect.y))
+                elif bonus==2:
+                    settings.BONUSES_LIST.add(bonuses.Life(self.rect.x,self.rect.y))
+                elif bonus==3:
+                    settings.BONUSES_LIST.add(bonuses.DoubleShoot(self.rect.x,self.rect.y))
+                elif bonus==4:
+                    settings.BONUSES_LIST.add(bonuses.TripleShoot(self.rect.x,self.rect.y))
+                elif bonus==5:
+                    settings.BONUSES_LIST.add(bonuses.QuadShoot(self.rect.x,self.rect.y))
+                elif bonus==6:
+                    settings.BONUSES_LIST.add(bonuses.SuperTripleShoot(self.rect.x,self.rect.y))
             settings.LIST_OF_EXPLOSIONS.add(weapons.Explosion(self.rect.x,self.rect.y))
             self.kill()
             settings.LIST_OF_ENEMIES.remove(self)

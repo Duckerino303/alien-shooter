@@ -1,5 +1,4 @@
 import pygame
-import classes.core.weapons as weapons
 import classes.core.settings as settings
 
 
@@ -17,9 +16,8 @@ class Ship(pygame.sprite.Sprite):
 
 
     def shoot(self):
-        if len(settings.BULLETS) < self.max_bullets:
-            settings.BULLETS.add(
-                weapons.Bullet(settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].speed,self.rect.centerx -5,self.rect.top))
+        self.weapon.shoot(self.max_bullets, self.rect.centerx -5, self.rect.top)
+
 
     def draw(self):
         settings.WINDOW.blit(self.img, self.rect)

@@ -4,10 +4,11 @@ import sys
 import classes.core.ship as ships
 import classes.core.settings as settings
 import classes.core.levels as levels
-import random
 import classes.core.weapons as weapons
+
 pygame.init()
 pygame.display.set_caption('Alien Shooter')
+
 # R G B colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -47,13 +48,20 @@ def text_objects(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
-
 def message_display(text, x, y):
     largeText = pygame.font.Font('freesansbold.ttf', 24)
     TextSurf, TextRect = text_objects(text, largeText)
     TextRect.center = (x, y)
     settings.WINDOW.blit(TextSurf, TextRect)
 
+def game_reset():
+    global CURRENT_LEVEL
+    ship.lives = 3
+    ship.rect.centerx = settings.WINDOW_WIDTH // 2
+    ship.rect.bottom = settings.WINDOW_HEIGHT
+    settings.LEVEL_COUNTER = 0
+    CURRENT_LEVEL = settings.LIST_OF_LEVELS[settings.LEVEL_COUNTER]
+    initialiseGame()
 
 def gameLoop():
     SCORE = 0
@@ -69,8 +77,9 @@ def gameLoop():
                 ship.react(event)
         settings.WINDOW.blit(settings.BACKGROUND_IMG,(0,0))
 
-        ship.update()
-        ship.draw()
+        if not gameOver:
+            ship.update()
+            ship.draw()
 
         #drawing bullets
         for bullet in settings.BULLETS:
@@ -86,7 +95,7 @@ def gameLoop():
             if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0:
                 bullet.kill()
                 ship.lives -= 1
-                ship.kill()
+                ship.reset()
             elif pygame.sprite.collide_rect(ship, bullet):
                 ship.kill()
                 gameOver = True
@@ -131,14 +140,17 @@ def gameLoop():
                 bonus.kill()
 
         message_display("lives: {}".format(ship.lives), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570))
+
         if gameOver:
             message_display("Game over!", (settings.WINDOW_WIDTH // 2), (settings.WINDOW_HEIGHT // 2))
+            pygame.display.flip()
             settings.reset()
         if settings.LEVEL_COUNTER == 9:
             message_display("Boss HP: {}".format(settings.BOSS_HP), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 470))
 
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)
+
 gameLoop()
 pygame.quit()
 quit()

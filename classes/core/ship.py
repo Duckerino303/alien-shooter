@@ -13,6 +13,7 @@ class Ship(pygame.sprite.Sprite):
         self.bullet_speed = 50
         self.weapon = None
         self.max_bullets = 999
+        self.god = False
 
 
     def shoot(self):
@@ -22,6 +23,10 @@ class Ship(pygame.sprite.Sprite):
 
     def draw(self):
         settings.WINDOW.blit(self.img, self.rect)
+
+    def reset(self):
+        self.rect.centerx = settings.WINDOW_WIDTH // 2
+        self.rect.bottom = settings.WINDOW_HEIGHT
 
     def move_left(self):
         self.speed = -6

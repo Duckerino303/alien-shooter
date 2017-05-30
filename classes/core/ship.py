@@ -47,9 +47,9 @@ class Ship(pygame.sprite.Sprite):
 
     def react(self,event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.move_left()
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.move_right()
             elif event.key == pygame.K_SPACE:
                 self.shoot()
@@ -57,4 +57,8 @@ class Ship(pygame.sprite.Sprite):
             if event.key == pygame.K_LEFT and self.speed < 0:
                 self.stop()
             if event.key == pygame.K_RIGHT and self.speed > 0:
+                self.stop()
+            if event.key == pygame.K_a and self.speed < 0:
+                self.stop()
+            if event.key == pygame.K_d and self.speed > 0:
                 self.stop()

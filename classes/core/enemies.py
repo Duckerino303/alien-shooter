@@ -66,11 +66,11 @@ class Enemy(pygame.sprite.Sprite):
     #moving to the right and left, after gaining final position
     def move(self):
         if self.direction == 'right':
-            self.rect.x += 1
+            self.rect.x += self.speed
             if self.rect.x > self.final_position[0] + self.radius:
                 self.direction = 'left'
         if self.direction == 'left':
-            self.rect.x -= 1
+            self.rect.x -= self.speed
             if self.rect.x < self.final_position[0] - self.radius:
                 self.direction = 'right'
         attackChoice = random.randint(1,10000)
@@ -110,7 +110,7 @@ class Enemy(pygame.sprite.Sprite):
 
 class Enemy1(Enemy):
     def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
-        super().__init__(3, 1, 2, 10, 'resources/images/enemy1.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        super().__init__(1, 1, 2, 10, 'resources/images/enemy1.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
         settings.ENEMY_BULLET_SPEED = 5
 
 
@@ -119,18 +119,24 @@ class Boss(Enemy):
         super().__init__(3, 1, 1000, 10, 'resources/images/VS_demilich.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
         self.shoot_ratio = 10
         settings.ENEMY_BULLET_SPEED = 10
-        self.radius = 150
+        self.radius = 200
     def shoot(self):
         if random.randint(1, 1000) < self.shoot_ratio:
             change = random.randint(1,200)
             settings.LIST_OF_ENEMY_BULLETS.add(weapons.EnemyBullet(self.bullet_speed, self.rect.x + change, self.rect.y))
+
+    def go_to_final_position(self):
+        self.rect.y -= self.speed
+        if abs(self.final_position[0] - self.rect.x) <= 5 and abs(self.final_position[1] - self.rect.y)<=5:
+            self.initialise_allocated = True
+
     def move(self):
         if self.direction == 'right':
-            self.rect.x += 1
+            self.rect.x += self.speed
             if self.rect.x > self.final_position[0] + self.radius:
                 self.direction = 'left'
         if self.direction == 'left':
-            self.rect.x -= 1
+            self.rect.x -= self.speed
             if self.rect.x < self.final_position[0] - self.radius:
                 self.direction = 'right'
     def hit(self,power, level):

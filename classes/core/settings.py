@@ -24,7 +24,7 @@ CURRENT_WEAPON = 0
 LIST_OF_WEAPONS = []
 
 LEVEL_WIN = True
-LEVEL_COUNTER = 8
+LEVEL_COUNTER = -1
 
 BULLETS = pygame.sprite.Group()
 

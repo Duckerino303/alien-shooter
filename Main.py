@@ -130,19 +130,27 @@ def gameLoop():
                 bonus.action()
                 bonus.kill()
 
+        #columns
+        settings.WINDOW.blit(settings.COLUMN_IMG,(0,0))
+        settings.WINDOW.blit(settings.COLUMN_IMG,(settings.WINDOW_WIDTH-100,0))
+
+
         #messages
-        message_display("Lives: {}".format(ship.lives), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 570), 24)
-        message_display("Speed: {}".format(ship.speed), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 530), 14)
-        message_display("Bullets: {}".format(ship.max_bullets), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 510), 14)
-        message_display("Weapon: {}({})".format(ship.weapon.name,ship.weapon.dmg), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 490), 14)
-        message_display("Level: {}".format(settings.LEVEL_COUNTER+1), (settings.WINDOW_WIDTH-700), (settings.WINDOW_HEIGHT - 570), 24)
-        message_display("Enemies: {}".format(len(settings.LIST_OF_ENEMIES)), (settings.WINDOW_WIDTH - 700), (settings.WINDOW_HEIGHT - 530), 24)
+        #right side
+        message_display("Lives: {}".format(ship.lives), (settings.WINDOW_WIDTH - 50), (settings.WINDOW_HEIGHT - 570), 24)
+        message_display("Speed: {}".format(ship.speed), (settings.WINDOW_WIDTH - 50), (settings.WINDOW_HEIGHT - 530), 14)
+        message_display("Bullets: {}".format(ship.max_bullets), (settings.WINDOW_WIDTH - 50), (settings.WINDOW_HEIGHT - 490), 14)
+        message_display("Weapon:", (settings.WINDOW_WIDTH - 50), (settings.WINDOW_HEIGHT - 430), 14)
+        message_display("{}({})".format(ship.weapon.name,ship.weapon.dmg), (settings.WINDOW_WIDTH - 50), (settings.WINDOW_HEIGHT - 410), 14)
+        #left side
+        message_display("Level: {}".format(settings.LEVEL_COUNTER+1), (50), (settings.WINDOW_HEIGHT - 570), 23)
+        message_display("Enemies: {}".format(len(settings.LIST_OF_ENEMIES)), (50), (settings.WINDOW_HEIGHT - 530), 15)
 
         if gameOver:
             message_display("Game over!", (settings.WINDOW_WIDTH // 2), (settings.WINDOW_HEIGHT // 2), 24)
             settings.reset()
         if settings.LEVEL_COUNTER == 9:
-            message_display("Boss HP: {}".format(settings.BOSS_HP), (settings.WINDOW_WIDTH - 100), (settings.WINDOW_HEIGHT - 470),24)
+            message_display("Boss HP: {}".format(settings.BOSS_HP), (settings.WINDOW_WIDTH/2), (20),24)
         pygame.display.flip()
         clock.tick(settings.CLOCK_RATE)
 gameLoop()

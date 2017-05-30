@@ -36,10 +36,10 @@ class Ship(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.move_speed
-        if self.rect.right > settings.WINDOW_WIDTH:
-            self.rect.right = settings.WINDOW_WIDTH
-        if self.rect.left < 0:
-            self.rect.left = 0
+        if self.rect.right > settings.WINDOW_WIDTH-100:
+            self.rect.right = settings.WINDOW_WIDTH-100
+        if self.rect.left < 100:
+            self.rect.left = 100
 
     def react(self,event):
         if event.type == pygame.KEYDOWN:

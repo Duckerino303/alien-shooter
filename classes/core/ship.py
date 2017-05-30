@@ -8,11 +8,12 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.img = pygame.image.load('resources/images/ship.png')
         self.rect = self.img.get_rect()
-        self.speed = 0
+        self.move_speed = 0
+        self.speed = 4
         self.lives = 3
         self.bullet_speed = 50
         self.weapon = None
-        self.max_bullets = 999
+        self.max_bullets = 5
 
 
     def shoot(self):
@@ -24,17 +25,17 @@ class Ship(pygame.sprite.Sprite):
         settings.WINDOW.blit(self.img, self.rect)
 
     def move_left(self):
-        self.speed = -6
+        self.move_speed = -1 * self.speed
 
     def move_right(self):
-        self.speed = 6
+        self.move_speed = self.speed
 
     def stop(self):
-        self.speed = 0
+        self.move_speed = 0
 
 
     def update(self):
-        self.rect.x += self.speed
+        self.rect.x += self.move_speed
         if self.rect.right > settings.WINDOW_WIDTH:
             self.rect.right = settings.WINDOW_WIDTH
         if self.rect.left < 0:
@@ -49,7 +50,7 @@ class Ship(pygame.sprite.Sprite):
             elif event.key == pygame.K_SPACE:
                 self.shoot()
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT and self.speed < 0:
+            if event.key == pygame.K_LEFT and self.move_speed < 0:
                 self.stop()
-            if event.key == pygame.K_RIGHT and self.speed > 0:
+            if event.key == pygame.K_RIGHT and self.move_speed > 0:
                 self.stop()

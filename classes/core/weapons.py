@@ -11,6 +11,7 @@ class Weapon(pygame.sprite.Sprite):
         self.img = pygame.image.load(img)
         self.sound = sound
         self.consume_bullets = consume_bullets
+        self.price = 0
 
     def shoot(self, max_bullets, x, y):
         pass
@@ -27,7 +28,7 @@ class Weapon1(Weapon):
 class Weapon2(Weapon):
     def __init__(self):
         super().__init__('double', 2, 3, 'resources/images/single-shot.png')
-
+        self.price = 50
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 1 < max_bullets:
             settings.BULLETS.add(Bullet(self.speed, x-7, y,0,1))
@@ -36,7 +37,7 @@ class Weapon2(Weapon):
 class Weapon3(Weapon):
     def __init__(self):
         super().__init__('triple', 3, 4, 'resources/images/single-shot.png')
-
+        self.price = 150
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
             settings.BULLETS.add(Bullet(self.speed, x, y,0.5,1))
@@ -46,7 +47,7 @@ class Weapon3(Weapon):
 class Weapon4(Weapon):
     def __init__(self):
         super().__init__('quad', 4, 5, 'resources/images/single-shot.png')
-
+        self.price = 300
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 3 < max_bullets:
             settings.BULLETS.add(Bullet(self.speed, x-16, y,0,1))
@@ -57,7 +58,7 @@ class Weapon4(Weapon):
 class Weapon5(Weapon):
     def __init__(self):
         super().__init__('super3', 5, 7, 'resources/images/single-shot.png')
-
+        self.price = 500
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
             settings.BULLETS.add(Bullet(self.speed, x, y,0.5,1))
@@ -67,7 +68,7 @@ class Weapon5(Weapon):
 class Weapon6(Weapon):
     def __init__(self):
         super().__init__('fireball', 10, 10, 'resources/images/single-shot.png')
-
+        self.price = 1000
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
             settings.BULLETS.add(Bullet(self.speed, x, y,0,1))

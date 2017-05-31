@@ -15,6 +15,7 @@ class Ship(pygame.sprite.Sprite):
         self.weapon = None
         self.max_bullets = 5
         self.god = False
+        self.money = 1000
 
     def reset(self):
         self.rect.centerx = settings.WINDOW_WIDTH // 2
@@ -58,8 +59,35 @@ class Ship(pygame.sprite.Sprite):
                 self.move_right()
             elif event.key == pygame.K_SPACE:
                 self.shoot()
+            elif event.key == pygame.K_1:
+                self.buyWeapon(1)
+            elif event.key == pygame.K_2:
+                self.buyWeapon(2)
+            elif event.key == pygame.K_3:
+                self.buyWeapon(3)
+            elif event.key == pygame.K_4:
+                self.buyWeapon(4)
+            elif event.key == pygame.K_5:
+                self.buyWeapon(5)
+            elif event.key == pygame.K_6 and self.money >= 1000:
+                self.lives += 1
+                self.money -= 1000
+            elif event.key == pygame.K_7 and self.money >= 1000:
+                threading.Thread(target=self.godmode, args=(10,)).start()
+                self.money -= 1000
+            elif event.key == pygame.K_8 and self.money >= 100:
+                self.max_bullets+=1
+                self.money -= 100
+            elif event.key == pygame.K_9 and self.money >= 100:
+                self.speed+=1
+                self.money -= 100
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT and self.move_speed < 0:
                 self.stop()
             if event.key == pygame.K_RIGHT and self.move_speed > 0:
                 self.stop()
+
+    def buyWeapon(self,number):
+        if self.money >= settings.LIST_OF_WEAPONS[number].price:
+            self.weapon = settings.LIST_OF_WEAPONS[number]
+            self.money -= settings.LIST_OF_WEAPONS[number].price

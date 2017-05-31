@@ -79,6 +79,41 @@ class QuadShoot(Bonus):
 class SuperTripleShoot(Bonus):
     def __init__(self,x,y):
         super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
-
     def action(self,ship):
         ship.weapon = settings.LIST_OF_WEAPONS[4]
+
+class Money10(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.money += 10
+
+class Money20(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.money += 20
+
+class Money50(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.money += 50
+
+class Money100(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.money += 100
+
+class Money200(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.money += 200
+
+class Shield(Bonus):
+    def __init__(self,x,y):
+        super().__init__('Bonus', 1, 'resources/images/bonus_test.png', None, x, y)
+    def action(self,ship):
+        ship.godmode(10)

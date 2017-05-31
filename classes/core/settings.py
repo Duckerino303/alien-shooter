@@ -21,7 +21,7 @@ LIST_OF_EXPLOSIONS = pygame.sprite.Group()
 
 BONUSES_LIST = pygame.sprite.Group()
 
-CURRENT_WEAPON = 5
+CURRENT_WEAPON = 0
 LIST_OF_WEAPONS = []
 
 LEVEL_WIN = True

@@ -6,14 +6,14 @@ import time
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.img = pygame.image.load('resources/images/ship.png')
+        self.img = settings.SHIP_IMG
         self.rect = self.img.get_rect()
         self.move_speed = 0
         self.speed = 4
         self.lives = 3
         self.bullet_speed = 50
-        self.weapon = None
-        self.max_bullets = 5
+        self.weapon = 0
+        self.max_bullets = 10
         self.god = False
         self.money = 1000
 
@@ -24,8 +24,10 @@ class Ship(pygame.sprite.Sprite):
 
     def godmode(self, duration):
         self.god = True
+        self.img = settings.SHIP_GOD_IMG
         time.sleep(duration)
         self.god = False
+        self.img = settings.SHIP_IMG
 
     def shoot(self):
         self.weapon.shoot(self.max_bullets, self.rect.centerx -5, self.rect.top)
@@ -91,3 +93,4 @@ class Ship(pygame.sprite.Sprite):
         if self.money >= settings.LIST_OF_WEAPONS[number].price:
             self.weapon = settings.LIST_OF_WEAPONS[number]
             self.money -= settings.LIST_OF_WEAPONS[number].price
+            settings.CURRENT_WEAPON = number

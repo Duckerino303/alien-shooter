@@ -19,7 +19,7 @@ class Weapon(pygame.sprite.Sprite):
 
 class Weapon1(Weapon):
     def __init__(self):
-        super().__init__('single', 1, 2, 'resources/images/single-shot.png')
+        super().__init__('single', 1, 4, 'resources/images/SingleShot.png')
 
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) < max_bullets:
@@ -27,7 +27,7 @@ class Weapon1(Weapon):
 
 class Weapon2(Weapon):
     def __init__(self):
-        super().__init__('double', 2, 3, 'resources/images/single-shot.png')
+        super().__init__('double', 2, 6, 'resources/images/DoubleShot.png')
         self.price = 50
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 1 < max_bullets:
@@ -36,7 +36,7 @@ class Weapon2(Weapon):
 
 class Weapon3(Weapon):
     def __init__(self):
-        super().__init__('triple', 3, 4, 'resources/images/single-shot.png')
+        super().__init__('triple', 3, 8, 'resources/images/TripleShot.png')
         self.price = 150
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
@@ -46,7 +46,7 @@ class Weapon3(Weapon):
 
 class Weapon4(Weapon):
     def __init__(self):
-        super().__init__('quad', 4, 5, 'resources/images/single-shot.png')
+        super().__init__('quad', 4, 10, 'resources/images/QuadShot.png')
         self.price = 300
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 3 < max_bullets:
@@ -57,7 +57,7 @@ class Weapon4(Weapon):
 
 class Weapon5(Weapon):
     def __init__(self):
-        super().__init__('super3', 5, 7, 'resources/images/single-shot.png')
+        super().__init__('super3', 5, 14, 'resources/images/SuperTripleShot.png')
         self.price = 500
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
@@ -67,7 +67,7 @@ class Weapon5(Weapon):
 
 class Weapon6(Weapon):
     def __init__(self):
-        super().__init__('fireball', 10, 10, 'resources/images/single-shot.png')
+        super().__init__('fireball', 10, 20, 'resources/images/FireBall.png')
         self.price = 1000
     def shoot(self, max_bullets, x, y):
         if len(settings.BULLETS) + 2 < max_bullets:
@@ -103,7 +103,8 @@ class EnemyBullet(pygame.sprite.Sprite):
         self.speed = speed
 
     def draw(self):
-        settings.WINDOW.blit(settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON].img, self.rect)
+
+        settings.WINDOW.blit(settings.ENEMY_BULLET, self.rect)
 
     def update(self):
         self.rect.y += settings.ENEMY_BULLET_SPEED

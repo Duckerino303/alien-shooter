@@ -6,9 +6,29 @@ import classes.core.settings as settings
 import classes.core.levels as levels
 import random
 import classes.core.weapons as weapons
+class Button:
+    def __init__(self):
+        self.width = 300
+        self.height = 100
+        self.font = pygame.font.SysFont(None, 60)
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = [settings.WINDOW_WIDTH//2, settings.WINDOW_HEIGHT//2]
+        self.set()
 
+    def set(self):
+        self.img = self.font.render('START',1, black, white)
+        self.rect_image = self.img.get_rect()
+        self.rect_image.center = self.rect.center
+
+    def draw(self):
+        settings.WINDOW.fill(white, self.rect)
+        settings.WINDOW.blit(self.img, self.rect_image)
+
+pygame.mixer.pre_init(44100, -16,2,2048)
 pygame.init()
 pygame.display.set_caption('Alien Shooter')
+pygame.mixer.init(44100, -16,2,2048)
+pygame.mixer.music.load('resources/music/music.mp3')
 # R G B colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -17,11 +37,8 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 
 clock = settings.CLOCK
-
+button = Button()
 ship = ships.Ship()
-ship.rect.centerx = settings.WINDOW_WIDTH // 2
-ship.rect.bottom = settings.WINDOW_HEIGHT
-
 
 def initialiseGame():
     # adding weapons
@@ -43,13 +60,26 @@ def initialiseGame():
     settings.LIST_OF_LEVELS.append(levels.Level9())
     settings.LIST_OF_LEVELS.append(levels.Level10())
 
-    # adding first weapon
-    ship.weapon = settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON]
-
 
 initialiseGame()
 CURRENT_LEVEL = settings.LIST_OF_LEVELS[settings.LEVEL_COUNTER]
 
+def reset():
+    settings.CURRENT_WEAPON = 0
+    settings.LEVEL_COUNTER = -1
+    settings.ENEMIES_KILLED = 0
+    settings.SCORE = 0
+    global ship
+    ship = ships.Ship()
+    ship.rect.centerx = settings.WINDOW_WIDTH // 2
+    ship.rect.bottom = settings.WINDOW_HEIGHT
+    ship.weapon = settings.LIST_OF_WEAPONS[settings.CURRENT_WEAPON]
+    settings.LIST_OF_ENEMIES = pygame.sprite.Group()
+    settings.LIST_OF_BULLETS = pygame.sprite.Group()
+    settings.LIST_OF_ENEMY_BULLETS = pygame.sprite.Group()
+    settings.BONUSES_LIST = pygame.sprite.Group()
+    settings.LEVEL_COUNTER = -1
+    settings.LEVEL_WIN = True
 
 def text_objects(text, font, color=white):
     textSurface = font.render(text, True, color)
@@ -67,17 +97,30 @@ def setColor(amount):
         return white
     return blue
 def gameLoop():
-    SCORE = 0
+    pygame.mixer.music.play(-1)
     gameExit = False
-    gameOver = False
-
-    while not gameExit:
+    gameStart = False
+    reset()
+    while not gameStart:
+        if settings.GAME_OVER:
+            message_display("Game over!", (settings.WINDOW_WIDTH // 2), (100), 24)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+            else:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if button.rect.collidepoint(pygame.mouse.get_pos()):
+                        gameStart = True
+                        pygame.mouse.set_visible(False)
+        button.draw()
+        pygame.display.flip()
+    while not gameExit and gameStart:
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit(0)
             else:
                 ship.react(event)
-        settings.WINDOW.blit(settings.BACKGROUND_IMG, (0, 0))
+        settings.WINDOW.blit(settings.BACKGROUND_IMG, (100, 0))
 
         ship.update()
         ship.draw()
@@ -99,7 +142,10 @@ def gameLoop():
                 ship.reset()
             elif pygame.sprite.collide_rect(ship, bullet) and not ship.god:
                 ship.kill()
-                gameOver = True
+                settings.GAME_OVER = True
+                gameStart = False
+                pygame.mouse.set_visible(True)
+                gameLoop()
 
         # checking if you pass the level:
         if not settings.LIST_OF_ENEMIES and settings.LEVEL_WIN:
@@ -168,9 +214,6 @@ def gameLoop():
         message_display("7.Armor(1000)", 50, 530, 15, setColor(1000))
         message_display("8.Bullet(100)", 50, 550, 15, setColor(100))
         message_display("9.Speed(100)", 50, 570, 15,  setColor(100))
-        if gameOver:
-            message_display("Game over!", (settings.WINDOW_WIDTH // 2), (settings.WINDOW_HEIGHT // 2), 24)
-            settings.reset()
         if settings.LEVEL_COUNTER == 9:
             message_display("Boss HP: {}".format(settings.BOSS_HP), (settings.WINDOW_WIDTH / 2), (20), 24)
         pygame.display.flip()

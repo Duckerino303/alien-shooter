@@ -14,6 +14,7 @@ class Enemy(pygame.sprite.Sprite):
         self.sound = sound
         self.width = 33
         self.height = 33
+        self.score = 50
         #szybkość strzału
         #docelowa pozycja
         self.final_position = final_x,final_y
@@ -97,7 +98,7 @@ class Enemy(pygame.sprite.Sprite):
         self.hp -= power
         if self.hp<=0:
             bonus_chance = random.randint(0,10)
-            if bonus_chance < 1:
+            if bonus_chance < 5:
                 bonus = random.randint(0,13)
                 if bonus==0:
                     settings.BONUSES_LIST.add(bonuses.SpeedUp(self.rect.x,self.rect.y))
@@ -129,6 +130,7 @@ class Enemy(pygame.sprite.Sprite):
             self.kill()
             settings.LIST_OF_ENEMIES.remove(self)
             settings.ENEMIES_KILLED += 1
+            settings.SCORE += self.score * settings.MULTIPLIER
             #check if last enemy, if yes changing settings.LEVEL_WIN to true
             if len(settings.LIST_OF_ENEMIES) ==0 and settings.ENEMIES_KILLED == settings.LIST_OF_LEVELS[level].number_of_enemies:
                 settings.LEVEL_WIN = True
@@ -138,12 +140,46 @@ class Enemy1(Enemy):
     def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
         super().__init__(1, 1, 2, 10, 'resources/images/enemy1.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
         settings.ENEMY_BULLET_SPEED = 5
+class Enemy2(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(2, 2, 3, 10, 'resources/images/enemy2.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 5
+class Enemy3(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(2, 3, 3, 10, 'resources/images/enemy3.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 5
+class Enemy4(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(3, 4, 4, 10, 'resources/images/enemy4.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 5
+class Enemy5(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(3, 5, 5, 10, 'resources/images/enemy5.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 6
+class Enemy6(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(4, 6, 7, 10, 'resources/images/enemy6.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED =6
+class Enemy7(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(4, 7, 8, 10, 'resources/images/enemy7.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 7
+class Enemy8(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(4, 8, 10, 10, 'resources/images/enemy8.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 7
+class Enemy9(Enemy):
+    def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
+        super().__init__(5, 10, 2, 10, 'resources/images/enemy9.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
+        settings.ENEMY_BULLET_SPEED = 8
+
 
 
 class Boss(Enemy):
     def __init__(self,x,y, final_x, final_y, initialise_counter, init_steps):
         super().__init__(3, 1, 1000, 10, 'resources/images/VS_demilich.png', None,x, y, final_x, final_y, initialise_counter, init_steps)
         self.shoot_ratio = 10
+        self.score = 1000
         settings.ENEMY_BULLET_SPEED = 10
         self.radius = 200
     def shoot(self):

@@ -87,11 +87,11 @@ def gameLoop():
         for bullet in settings.LIST_OF_ENEMY_BULLETS:
             bullet.update()
             bullet.draw()
-            if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0:
+            if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0 and not ship.god:
                 bullet.kill()
                 ship.lives -= 1
                 ship.reset()
-            elif pygame.sprite.collide_rect(ship, bullet):
+            elif pygame.sprite.collide_rect(ship, bullet) and not ship.god:
                 ship.kill()
                 gameOver = True
 

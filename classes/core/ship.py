@@ -1,6 +1,7 @@
 import pygame
 import classes.core.settings as settings
-
+import threading
+import time
 
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
@@ -13,10 +14,17 @@ class Ship(pygame.sprite.Sprite):
         self.bullet_speed = 50
         self.weapon = None
         self.max_bullets = 5
+        self.god = False
 
     def reset(self):
         self.rect.centerx = settings.WINDOW_WIDTH // 2
         self.rect.bottom = settings.WINDOW_HEIGHT
+        threading.Thread(target=self.godmode, args=(3,)).start()
+
+    def godmode(self, duration):
+        self.god = True
+        time.sleep(duration)
+        self.god = False
 
     def shoot(self):
         self.weapon.shoot(self.max_bullets, self.rect.centerx -5, self.rect.top)

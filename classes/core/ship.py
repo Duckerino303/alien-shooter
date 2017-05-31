@@ -14,6 +14,9 @@ class Ship(pygame.sprite.Sprite):
         self.weapon = None
         self.max_bullets = 5
 
+    def reset(self):
+        self.rect.centerx = settings.WINDOW_WIDTH // 2
+        self.rect.bottom = settings.WINDOW_HEIGHT
 
     def shoot(self):
         self.weapon.shoot(self.max_bullets, self.rect.centerx -5, self.rect.top)

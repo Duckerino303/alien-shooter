@@ -90,7 +90,7 @@ def gameLoop():
             if pygame.sprite.collide_rect(ship, bullet) and ship.lives > 0:
                 bullet.kill()
                 ship.lives -= 1
-                ship.kill()
+                ship.reset()
             elif pygame.sprite.collide_rect(ship, bullet):
                 ship.kill()
                 gameOver = True
